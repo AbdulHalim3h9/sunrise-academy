@@ -29,7 +29,7 @@ const HeroSection = ({ images }) => {
   }, []);
   return (
     <div className="w-full relative overflow-hidden rounded-2xl shadow-xl">
-      <div className="relative h-[60vh] min-h-[500px] w-full group">
+      <div className="relative h-[30vh] min-h-[300px] md:h-[50vh] md:min-h-[500px] w-full group">
         {/* Navigation Arrows */}
         <button 
           onClick={prevSlide}

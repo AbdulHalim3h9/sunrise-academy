@@ -79,7 +79,7 @@ export default function AdmissionsPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-700 to-blue-600 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Admissions</h1>
           <p className="text-xl max-w-3xl mx-auto">Begin your journey to excellence at Sunrise Academy</p>
         </div>
@@ -87,7 +87,7 @@ export default function AdmissionsPage() {
 
       {/* Tabs */}
       <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <div className="flex flex-wrap -mb-px">
             <button
               onClick={() => setActiveTab('process')}
@@ -134,14 +134,14 @@ export default function AdmissionsPage() {
       </div>
 
       {/* Tab Content */}
-      <div className="py-16">
-        <div className="container mx-auto px-4">
+      <div className="py-4 ">
+        <div className="container mx-auto">
           {/* Admission Process */}
           {activeTab === 'process' && (
             <div className="max-w-5xl mx-auto">
               <h2 className="text-3xl font-bold text-gray-800 mb-12 text-center">Our Admission Process</h2>
               
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {admissionProcess.map((step, index) => (
                   <div key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
                     <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">

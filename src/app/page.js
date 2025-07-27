@@ -134,8 +134,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      <SectionWrapper className="py-8 md:py-12 bg-white">
-        <div className="container mx-auto px-4">
+      <SectionWrapper className="py-2 bg-white">
+        <div className="container mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-8">
               <HeroSection images={heroImages} />
@@ -149,15 +149,15 @@ export default function Home() {
         </div>
       </SectionWrapper>
       
-      <SectionWrapper className="py-16 bg-emerald-50">
-        <div className="container mx-auto px-4">
+      <SectionWrapper className="py-4  bg-emerald-50">
+        <div className="container mx-auto">
           <WelcomeSection />
         </div>
       </SectionWrapper>
       
       {/* Announcements & Calendar Section */}
-      <SectionWrapper className="py-16 bg-gradient-to-b from-emerald-50 to-white">
-        <div className="container mx-auto px-4">
+      <SectionWrapper className="py-4  bg-gradient-to-b from-emerald-50 to-white">
+        <div className="container mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Announcements - Takes 2/3 width on large screens */}
             <div className="lg:w-2/3">
@@ -188,8 +188,8 @@ export default function Home() {
       </SectionWrapper>
       
       {/* News & Events and Quick Links Section */}
-      <SectionWrapper className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <SectionWrapper className="py-4  bg-white">
+        <div className="container mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* News & Events - Takes 2/3 width on large screens */}
             <div className="lg:w-2/3">
@@ -219,8 +219,8 @@ export default function Home() {
         </div>
       </SectionWrapper>
       
-      <SectionWrapper className="py-16 bg-gradient-to-b from-white to-emerald-50">
-        <div className="container mx-auto px-4">
+      <SectionWrapper className="py-4  bg-gradient-to-b from-white to-emerald-50">
+        <div className="container mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

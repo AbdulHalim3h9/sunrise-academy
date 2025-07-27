@@ -32,7 +32,7 @@ const NewsAndEventsSection = () => {
 
   return (
     <section className="py-8 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-3">খবর ও ইভেন্ট</h2>
           <div className="w-16 h-1 bg-emerald-600 mx-auto"></div>

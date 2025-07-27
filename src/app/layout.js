@@ -1,6 +1,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import NewsTicker from '../components/NewsTicker'
+import Navigation from '../components/Navigation'
 import SchoolLogo from '../components/SchoolLogo'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -14,63 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen bg-gray-100`}>
-        <nav className="bg-emerald-50 shadow-md">
-          <div className="container mx-auto px-4">
-            <div className="flex justify-between items-center py-3">
-              <div className="flex items-center space-x-3">
-                <SchoolLogo />
-                <div className="hidden sm:block">
-                  <div className="text-xl font-bold text-emerald-800">সানরাইজ একাডেমি</div>
-                  <div className="text-xs text-emerald-700">উজ্জ্বল ভবিষ্যতের সন্ধানে</div>
-                </div>
-              </div>
-              <div className="hidden md:block">
-                <div className="text-xs text-emerald-600 whitespace-nowrap">
-                  <span className="font-medium">ইনস্টিটিউট কোড:</span> ২০০৬৮ | <span className="font-medium">EIIN:</span> ১৩২৯১৩
-                </div>
-              </div>
-              <div className="hidden md:flex space-x-1">
-                <a href="/" className="px-4 py-2 rounded-md text-emerald-900 hover:bg-emerald-100 hover:text-emerald-800 font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
-                  <span className="relative">
-                    <span className="relative z-10">হোম</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full"></span>
-                  </span>
-                </a>
-                <a href="/about" className="px-4 py-2 rounded-md text-emerald-900 hover:bg-emerald-100 hover:text-emerald-800 font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
-                  <span className="relative">
-                    <span className="relative z-10">আমাদের সম্পর্কে</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full"></span>
-                  </span>
-                </a>
-                <a href="/academics" className="px-4 py-2 rounded-md text-emerald-900 hover:bg-emerald-100 hover:text-emerald-800 font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
-                  <span className="relative">
-                    <span className="relative z-10">শিক্ষা কার্যক্রম</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full"></span>
-                  </span>
-                </a>
-                <a href="/admissions" className="px-4 py-2 rounded-md text-emerald-900 hover:bg-emerald-100 hover:text-emerald-800 font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
-                  <span className="relative">
-                    <span className="relative z-10">ভর্তি</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full"></span>
-                  </span>
-                </a>
-                <a href="/contact" className="px-4 py-2 rounded-md text-emerald-900 hover:bg-emerald-100 hover:text-emerald-800 font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
-                  <span className="relative">
-                    <span className="relative z-10">যোগাযোগ</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full"></span>
-                  </span>
-                </a>
-              </div>
-              <button className="md:hidden">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </nav>
-        <NewsTicker />
-        <main>{children}</main>
+        <Navigation />
+        <div className="pt-20">
+          <NewsTicker />
+          <main>{children}</main>
+        </div>
         <footer className="bg-[#012b20] text-white pt-12 pb-6 relative overflow-hidden">
           {/* Animated background elements */}
           <div className="absolute inset-0 opacity-5">
@@ -78,7 +27,7 @@ export default function RootLayout({ children }) {
             <div className="absolute top-1/2 -right-20 w-64 h-64 bg-emerald-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
             <div className="absolute -bottom-20 left-1/2 w-64 h-64 bg-emerald-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
           </div>
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* School Info */}
               <div className="md:col-span-2 relative z-10">

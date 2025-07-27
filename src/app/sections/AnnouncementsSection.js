@@ -78,9 +78,9 @@ const AnnouncementCard = ({ title, date, description, isNew = false, index }) =>
 
 const AnnouncementsSection = ({ announcements }) => {
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-emerald-50">
+    <section className="py-4  bg-gradient-to-b from-white to-emerald-50">
       <motion.div 
-        className="container mx-auto px-4"
+        className="container mx-auto"
         variants={staggerContainer}
         initial="hidden"
         whileInView="show"

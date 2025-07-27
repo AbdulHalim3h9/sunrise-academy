@@ -6,13 +6,13 @@ import PrincipalMessageSection from './PrincipalMessageSection';
 const WelcomeSection = () => {
   return (
     <motion.section 
-      className="py-16 bg-gradient-to-b from-white to-emerald-50"
+      className="py-4  bg-gradient-to-b from-white to-emerald-50"
       variants={staggerContainer}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.25 }}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <motion.div 
           className="flex flex-col lg:flex-row gap-8"
           variants={staggerContainer}

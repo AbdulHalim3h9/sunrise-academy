@@ -74,15 +74,15 @@ export default function AcademicsPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="bg-blue-700 text-white py-20">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Academics</h1>
           <p className="text-xl max-w-3xl mx-auto">Excellence in education through innovative teaching and learning experiences</p>
         </div>
       </div>
 
       {/* Academic Programs */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-4  bg-white">
+        <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Our Academic Programs</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
@@ -127,8 +127,8 @@ export default function AcademicsPage() {
       </section>
 
       {/* Curriculum Areas */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="py-4  bg-gray-50">
+        <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Curriculum Areas</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
@@ -150,8 +150,8 @@ export default function AcademicsPage() {
       </section>
 
       {/* Academic Calendar */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-4  bg-white">
+        <div className="container mx-auto">
           <div className="max-w-4xl mx-auto bg-blue-50 rounded-xl p-8 text-center">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Academic Calendar</h2>
             <p className="text-gray-600 mb-6">
@@ -168,8 +168,8 @@ export default function AcademicsPage() {
       </section>
 
       {/* Resources */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="py-4  bg-gray-50">
+        <div className="container mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Academic Resources</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
