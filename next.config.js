@@ -5,7 +5,8 @@ const nextConfig = {
       'api.squarecomputer.net',
       'squarecomputer.net',
       'localhost',
-      '127.0.0.1'
+      '127.0.0.1',
+      'fonts.maateen.me'
     ],
   },
   // Enable React Strict Mode

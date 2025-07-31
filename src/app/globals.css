@@ -2,14 +2,133 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --color-primary: 20 83 45;      /* emerald-900 */
-    --color-secondary: 6 95 70;    /* emerald-800 */
-    --color-accent: 5 150 105;     /* emerald-600 */
-    --color-light: 209 250 229;    /* emerald-100 */
-    --color-dark: 1 50 32;         /* Custom blackish green */
-  }
+@import url('https://fonts.maateen.me/siyam-rupali/font.css');
+
+/* Navbar Styles */
+.navbar {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.navbar .menu-horizontal > li > * {
+  @apply hover:bg-emerald-100 hover:text-emerald-900 rounded-lg transition-colors duration-200;
+}
+
+/* Dropdown Menu */
+.navbar .menu-horizontal > li > div > button {
+  @apply hover:bg-emerald-100 text-emerald-900 rounded-lg transition-colors duration-200;
+}
+
+.navbar .menu-horizontal > li > div > ul {
+  @apply shadow-lg border border-emerald-100 bg-white rounded-lg py-2;
+}
+
+.navbar .menu-horizontal > li > div > ul a {
+  @apply hover:bg-emerald-50 text-emerald-900;
+}
+
+/* Mobile Menu */
+.navbar .menu.vertical {
+  @apply p-2;
+}
+
+.navbar .menu.vertical li > * {
+  @apply rounded-lg my-1;
+}
+
+.navbar .menu.vertical li a {
+  @apply hover:bg-emerald-700;
+}
+
+/* Active State */
+.navbar .menu-horizontal > li > a[aria-current="page"] {
+  @apply bg-emerald-100 text-emerald-900 font-semibold;
+}
+
+/* Logo and Branding */
+.navbar .branding {
+  @apply flex items-center space-x-3;
+}
+
+.navbar .logo {
+  @apply h-12 w-12 rounded-full border-2 border-white shadow-md overflow-hidden;
+}
+
+.navbar .school-name {
+  @apply text-xl font-bold text-emerald-900;
+}
+
+.navbar .school-info {
+  @apply text-sm text-emerald-800 opacity-90;
+}
+
+:root {
+  --font-siyam-rupali: 'Siyam Rupali', 'Arial Unicode MS', 'Arial', sans-serif;
+  --color-primary: #14532d;
+  --color-secondary: #065f46;
+  --color-accent: #059669;
+  --color-light: #d1fae5;
+  --color-dark: #013220;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-siyam-rupali);
+  line-height: 1.7;
+  color: #111827;
+  background: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.75em;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1.125rem; }
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  html { font-size: 16px; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+}
+
+/* Color Variables */
+:root {
+  --color-primary: 20 83 45;      /* emerald-900 */
+  --color-secondary: 6 95 70;    /* emerald-800 */
+  --color-accent: 5 150 105;     /* emerald-600 */
+  --color-light: 209 250 229;    /* emerald-100 */
+  --color-dark: 1 50 32;         /* Custom blackish green */
+  --text-primary: 17 24 39;      /* gray-900 */
+  --text-secondary: 75 85 99;    /* gray-600 */
 }
 
 /* Custom Animations */

@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Siyam Rupali';
+  src: local('Siyam Rupali'),
+       url('https://fonts.maateen.me/siyam-rupali/SiyamRupali.woff2') format('woff2'),
+       url('https://fonts.maateen.me/siyam-rupali/SiyamRupali.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Siyam Rupali';
+  src: local('Siyam Rupali Bold'),
+       local('SiyamRupali-Bold'),
+       url('https://fonts.maateen.me/siyam-rupali/SiyamRupali-Bold.woff2') format('woff2'),
+       url('https://fonts.maateen.me/siyam-rupali/SiyamRupali-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}

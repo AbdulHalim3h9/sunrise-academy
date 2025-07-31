@@ -1,11 +1,8 @@
-import { Inter } from 'next/font/google'
 import './globals.css'
 import NewsTicker from '../components/NewsTicker'
 import Navigation from '../components/Navigation'
 import SchoolLogo from '../components/SchoolLogo'
 import ApolloClientProvider from '../providers/ApolloProvider'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Square Kindergarten School | স্কয়ার কিন্ডারগার্টেন স্কুল',
@@ -15,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen bg-gray-100`}>
+      <body className="min-h-screen bg-gray-100">
         <ApolloClientProvider>
           <Navigation />
           <div className="pt-20">

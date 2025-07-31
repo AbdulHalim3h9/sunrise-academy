@@ -6,9 +6,23 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-siyam-rupali)', 'system-ui', 'sans-serif'],
+      },
+      colors: {
+        primary: 'rgb(20, 83, 45)',
+        secondary: 'rgb(6, 95, 70)',
+        accent: 'rgb(5, 150, 105)',
+        light: 'rgb(209, 250, 229)',
+        dark: 'rgb(1, 50, 32)',
+      },
+    },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('daisyui')
+  ],
   daisyui: {
     themes: ["light", "dark", "cupcake"],
   },
