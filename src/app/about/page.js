@@ -7,14 +7,15 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
           <div className="p-8">
             <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold text-gray-800 mb-4">About Sunrise Academy</h1>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">About Square Kindergarten School</h1>
+              <div className="text-2xl font-semibold text-gray-700 mb-4">স্কয়ার কিন্ডারগার্টেন স্কুল</div>
               <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
             </div>
 
             <div className="prose max-w-none">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h2>
               <p className="text-gray-600 mb-6">
-                At Sunrise Academy, we are dedicated to providing a nurturing and stimulating environment where students can achieve their full potential. 
+                At Square Kindergarten School, we are dedicated to providing a nurturing and stimulating environment where students can achieve their full potential. 
                 Our mission is to foster intellectual curiosity, critical thinking, and a lifelong love of learning in every student.
               </p>
 
@@ -26,7 +27,7 @@ export default function AboutPage() {
 
               <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-8">Our History</h2>
               <p className="text-gray-600 mb-6">
-                Established in 1995, Sunrise Academy has been at the forefront of educational excellence for over two decades. 
+                Established in 1995, Square Kindergarten School has been at the forefront of educational excellence for over two decades. 
                 What began as a small institution with a handful of students has grown into a renowned educational center serving hundreds of students each year.
               </p>
 

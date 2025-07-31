@@ -48,7 +48,8 @@ export default function ContactPage() {
       <div className="container mx-auto">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Contact Us</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">Contact Us</h1>
+            <div className="text-2xl font-semibold text-gray-700 mb-4">যোগাযোগ করুন</div>
             <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
             <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
               Have questions or feedback? We'd love to hear from you. Fill out the form below or reach out using the contact information provided.

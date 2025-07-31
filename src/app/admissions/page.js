@@ -81,7 +81,7 @@ export default function AdmissionsPage() {
       <div className="bg-gradient-to-r from-blue-700 to-blue-600 text-white py-20">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Admissions</h1>
-          <p className="text-xl max-w-3xl mx-auto">Begin your journey to excellence at Sunrise Academy</p>
+          <p className="text-xl max-w-3xl mx-auto">Begin your journey to excellence at Square Kindergarten School</p>
         </div>
       </div>
 
@@ -161,7 +161,7 @@ export default function AdmissionsPage() {
               <div className="mt-16 bg-blue-50 rounded-xl p-8 text-center">
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">Ready to Start Your Journey?</h3>
                 <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                  Begin your application today and take the first step toward an exceptional education at Sunrise Academy.
+                  Begin your application today and take the first step toward an exceptional education at Square Kindergarten School.
                 </p>
                 <a
                   href="#apply-now"
@@ -226,7 +226,7 @@ export default function AdmissionsPage() {
                     <div>
                       <h3 className="text-xl font-semibold text-gray-800 mb-4">4. Family Interview</h3>
                       <p className="text-gray-600 mb-4">
-                        Meet with our admissions team to discuss your child's educational needs and ensure Sunrise Academy is the right fit.
+                        Meet with our admissions team to discuss your child's educational needs and ensure Square Kindergarten School is the right fit.
                       </p>
                     </div>
 

@@ -12,7 +12,7 @@ const GallerySection = ({ images }) => {
           <h2 className="text-3xl font-bold text-gray-800 mb-2">আমাদের গ্যালারি</h2>
           <div className="w-20 h-1 bg-emerald-600 mx-auto"></div>
           <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-            সানরাইজ একাডেমির বিভিন্ন অনুষ্ঠান, কার্যক্রম ও দৈনন্দিন জীবনের কিছু মুহূর্ত
+            স্কয়ার কিন্ডার গার্টেন স্কুলের বিভিন্ন অনুষ্ঠান, কার্যক্রম ও দৈনন্দিন জীবনের কিছু মুহূর্ত
           </p>
         </div>
         

@@ -3,24 +3,26 @@ import './globals.css'
 import NewsTicker from '../components/NewsTicker'
 import Navigation from '../components/Navigation'
 import SchoolLogo from '../components/SchoolLogo'
+import ApolloClientProvider from '../providers/ApolloProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Sunrise Academy',
-  description: 'Welcome to Sunrise Academy',
+  title: 'Square Kindergarten School | স্কয়ার কিন্ডারগার্টেন স্কুল',
+  description: 'Welcome to Square Kindergarten School - স্কয়ার কিন্ডারগার্টেন স্কুলে স্বাগতম',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen bg-gray-100`}>
-        <Navigation />
-        <div className="pt-20">
-          <NewsTicker />
-          <main>{children}</main>
-        </div>
-        <footer className="bg-[#012b20] text-white pt-12 pb-6 relative overflow-hidden">
+        <ApolloClientProvider>
+          <Navigation />
+          <div className="pt-20">
+            <NewsTicker />
+            <main>{children}</main>
+          </div>
+          <footer className="bg-[#012b20] text-white pt-12 pb-6 relative overflow-hidden">
           {/* Animated background elements */}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-1/4 -left-20 w-64 h-64 bg-emerald-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -33,7 +35,7 @@ export default function RootLayout({ children }) {
               <div className="md:col-span-2 relative z-10">
                 <div className="flex items-center mb-4">
                   <SchoolLogo className="h-12 w-12 mr-3" />
-                  <h3 className="text-2xl font-bold text-emerald-100">সানরাইজ একাডেমি</h3>
+                  <h3 className="text-2xl font-bold text-emerald-100">স্কয়ার কিন্ডারগার্টেন স্কুল</h3>
                 </div>
                 <p className="text-emerald-100 mb-4">জ্ঞান, নৈতিকতা ও আধুনিক শিক্ষার সমন্বয়ে গড়ে উঠেছে আমাদের শিক্ষা প্রতিষ্ঠান। ভবিষ্যতের জন্য দক্ষ ও নৈতিক নাগরিক গড়ে তোলাই আমাদের লক্ষ্য।</p>
                 <div className="flex space-x-4 mt-6">
@@ -54,7 +56,7 @@ export default function RootLayout({ children }) {
 
               {/* Quick Links */}
               <div className="relative z-10">
-                <h4 className="text-lg font-bold text-emerald-100 mb-4 pb-2 border-b border-emerald-700">দ্রুত লিংক</h4>
+                <h4 className="text-lg font-bold text-emerald-100 mb-4 pb-2 border-b border-emerald-700">কুইক লিংক</h4>
                 <ul className="space-y-3">
                   <li><a href="/about" className="text-emerald-100 hover:text-white transition-colors flex items-center">
                     <svg className="w-4 h-4 mr-2 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,13 +94,13 @@ export default function RootLayout({ children }) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <span className="text-emerald-100">১২৩ স্কুল স্ট্রিট, ঢাকা - ১২১৬, বাংলাদেশ</span>
+                    <span className="text-emerald-100">ঝোপগাড়ি, বগুড়া - ৫৮০০, বাংলাদেশ</span>
                   </li>
                   <li className="flex items-center">
                     <svg className="w-5 h-5 text-emerald-300 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <a href="mailto:info@sunriseacademy.edu.bd" className="text-emerald-100 hover:text-white transition-colors">info@sunriseacademy.edu.bd</a>
+                    <a href="mailto:info@squarekindergarten.edu.bd" className="text-emerald-100 hover:text-white transition-colors">info@squarekindergarten.edu.bd</a>
                   </li>
                   <li className="flex items-center">
                     <svg className="w-5 h-5 text-emerald-300 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,7 +115,7 @@ export default function RootLayout({ children }) {
             {/* Copyright */}
             <div className="border-t border-emerald-800 mt-8 pt-6 text-center">
               <p className="text-emerald-200 text-sm">
-                © {new Date().getFullYear()} সানরাইজ একাডেমি। সর্বস্বত্ব সংরক্ষিত।
+                © {new Date().getFullYear()} স্কয়ার কিন্ডার গার্টেন স্কুল, ঝোপগাড়ী, বগুড়া। সর্বস্বত্ব সংরক্ষিত।
               </p>
               <p className="text-emerald-300 text-xs mt-2">
                 <a href="/privacy-policy" className="hover:text-white transition-colors">গোপনীয়তা নীতি</a> | 
@@ -123,6 +125,7 @@ export default function RootLayout({ children }) {
             </div>
           </div>
         </footer>
+        </ApolloClientProvider>
       </body>
     </html>
   )

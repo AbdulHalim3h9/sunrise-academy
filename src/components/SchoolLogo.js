@@ -7,7 +7,7 @@ const SchoolLogo = () => {
     <div className="w-12 h-12 rounded-full bg-white p-1 shadow-sm flex items-center justify-center overflow-hidden">
       <img 
         src="https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/082016/untitled-2_16.jpg?itok=B_76GWVG" 
-        alt="Sunrise Academy Logo" 
+        alt="Square Kindergarten School Logo" 
         className="w-full h-full object-cover"
         onError={(e) => {
           e.target.onerror = null;

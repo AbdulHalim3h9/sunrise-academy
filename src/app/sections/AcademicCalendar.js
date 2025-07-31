@@ -1,13 +1,17 @@
 'use client';
-import React, { useState } from 'react';
-import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, getDay } from 'date-fns';
+import React, { useState, useEffect } from 'react';
+import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, getDay, parseISO } from 'date-fns';
 import { bn } from 'date-fns/locale';
+import { FaSpinner } from 'react-icons/fa';
 
 const AcademicCalendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [holidays, setHolidays] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   
-  // Sample holidays and important dates (date should be in YYYY-MM-DD format)
-  const events = [
+  // Static events (exams, school events, etc.)
+  const staticEvents = [
     { date: '2025-08-15', title: 'জাতীয় শোক দিবস', type: 'holiday' },
     { date: '2025-08-25', title: 'শ্রদ্ধাঞ্জলি দিবস', type: 'holiday' },
     { date: '2025-09-06', title: 'মিড টার্ম পরীক্ষা শুরু', type: 'exam' },
@@ -15,6 +19,51 @@ const AcademicCalendar = () => {
     { date: '2025-10-02', title: 'মহান শিক্ষা দিবস', type: 'event' },
     { date: '2025-10-15', title: 'বার্ষিক ক্রীড়া দিবস', type: 'event' },
   ];
+
+  // Fetch holidays from HolidayAPI
+  useEffect(() => {
+    const fetchHolidays = async () => {
+      try {
+        setLoading(true);
+        const key = '2e519668-ea2c-4137-8292-bf1f7c18b993';
+        // Using 2024 as the free tier only provides historical data up to 2024
+        const year = 2024;
+        
+        // Fetch holidays for Bangladesh using direct fetch
+        const response = await fetch(
+          `https://holidayapi.com/v1/holidays?pretty&key=${key}&country=BD&year=${year}`
+        );
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+
+        if (data.holidays) {
+          // Transform holiday data to match our events format
+          const formattedHolidays = data.holidays.map(holiday => ({
+            date: holiday.date,
+            title: holiday.name,
+            type: 'holiday',
+            isPublicHoliday: true
+          }));
+          
+          setHolidays(formattedHolidays);
+        }
+      } catch (err) {
+        console.error('Error fetching holidays:', err);
+        setError('ছুটির দিনগুলি লোড করতে সমস্যা হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHolidays();
+  }, []);
+
+  // Combine static events with dynamic holidays
+  const events = [...staticEvents, ...holidays];
 
   const nextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
   const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
@@ -128,30 +177,62 @@ const AcademicCalendar = () => {
     );
   };
 
+  if (loading) {
+    return (
+      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+        <h3 className="text-lg font-bold text-emerald-800 mb-4 pb-2 border-b border-emerald-200">
+          <span className="inline-block mr-2">📅</span>
+          একাডেমিক ক্যালেন্ডার
+        </h3>
+        <div className="flex justify-center items-center py-8">
+          <FaSpinner className="animate-spin text-emerald-600 text-2xl mr-2" />
+          <span className="text-gray-600">ক্যালেন্ডার লোড হচ্ছে...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+        <h3 className="text-lg font-bold text-emerald-800 mb-4 pb-2 border-b border-emerald-200">
+          <span className="inline-block mr-2">📅</span>
+          একাডেমিক ক্যালেন্ডার
+        </h3>
+        <div className="bg-red-50 border-l-4 border-red-500 p-4">
+          <p className="text-red-700">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
       <h3 className="text-lg font-bold text-emerald-800 mb-4 pb-2 border-b border-emerald-200">
         <span className="inline-block mr-2">📅</span>
-        একাডেমিক ক্যালেন্ডার
+        একাডেমিক ক্যালেন্ডার {new Date().getFullYear()}
       </h3>
       <div className="calendar">
         {renderHeader()}
         {renderDays()}
         {renderCells()}
       </div>
-      <div className="mt-3 flex flex-wrap gap-2 text-xs">
+      <div className="mt-3 flex flex-wrap gap-4 text-xs">
         <div className="flex items-center">
-          <span className="w-3 h-3 bg-red-100 mr-1"></span>
-          <span>ছুটি</span>
+          <span className="w-3 h-3 bg-red-100 border border-red-300 mr-1"></span>
+          <span>সরকারি ছুটি</span>
         </div>
         <div className="flex items-center">
-          <span className="w-3 h-3 bg-yellow-100 mr-1"></span>
+          <span className="w-3 h-3 bg-yellow-100 border border-yellow-300 mr-1"></span>
           <span>পরীক্ষা</span>
         </div>
         <div className="flex items-center">
-          <span className="w-3 h-3 bg-blue-100 mr-1"></span>
+          <span className="w-3 h-3 bg-blue-100 border border-blue-300 mr-1"></span>
           <span>অনুষ্ঠান</span>
         </div>
+      </div>
+      <div className="mt-2 text-xs text-gray-500 text-right">
+        <p>সরকারি ছুটির তথ্য ২০২৪ সালের (HolidayAPI থেকে সংগৃহীত)</p>
       </div>
     </div>
   );

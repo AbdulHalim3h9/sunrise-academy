@@ -68,15 +68,15 @@ const PrincipalMessageSection = () => {
             className="mb-4"
             variants={item}
           >
-            <h4 className="font-bold text-gray-900 text-lg">ড. মোহাম্মদ আলী</h4>
-            <p className="text-sm text-emerald-600 font-medium mt-1">প্রিন্সিপাল, সানরাইজ একাডেমি</p>
+            <h4 className="font-bold text-gray-900 text-lg">মোঃ রুহুল আমিন সরকার</h4>
+            <p className="text-sm text-emerald-600 font-medium mt-1">পরিচালক, স্কয়ার কিন্ডার গার্টেন স্কুল<br />ঝোপগাড়ী, বগুড়া</p>
           </motion.div>
           
           <motion.p 
             className="text-gray-600 text-sm mb-5 leading-relaxed line-clamp-3"
             variants={item}
           >
-            সানরাইজ একাডেমিতে স্বাগতম। আমাদের লক্ষ্য হল শিক্ষার্থীদের প্রযুক্তিগত দক্ষতা এবং নৈতিক মূল্যবোধে সমৃদ্ধ করে গড়ে তোলা। আমরা বিশ্বাস করি যে প্রতিটি শিক্ষার্থীর মধ্যে অসীম সম্ভাবনা রয়েছে।
+            স্কয়ার কিন্ডার গার্টেন স্কুলে স্বাগতম। আমাদের লক্ষ্য হল শিক্ষার্থীদের প্রযুক্তিগত দক্ষতা এবং নৈতিক মূল্যবোধে সমৃদ্ধ করে গড়ে তোলা। আমরা বিশ্বাস করি যে প্রতিটি শিক্ষার্থীর মধ্যে অসীম সম্ভাবনা রয়েছে।
           </motion.p>
           
           <motion.div 

@@ -46,8 +46,8 @@ export default function Navigation() {
         <div className="flex items-center space-x-2">
           <SchoolLogo className="h-12 w-auto" />
           <div className="flex flex-col">
-            <div className="text-lg font-bold text-emerald-800 leading-tight">সানরাইজ একাডেমি</div>
-            <div className="text-[10px] text-emerald-700 leading-tight">উজ্জ্বল ভবিষ্যতের সন্ধানে</div>
+            <div className="text-lg font-bold text-emerald-800 leading-tight">স্কয়ার কিন্ডারগার্টেন স্কুল</div>
+            <div className="text-sm text-emerald-700 leading-tight">Square Kindergarten School</div>
           </div>
         </div>
         <button 
@@ -71,8 +71,8 @@ export default function Navigation() {
           <div className="flex items-center space-x-3">
             <SchoolLogo />
             <div>
-              <div className="text-xl font-bold text-emerald-800">সানরাইজ একাডেমি</div>
-              <div className="text-xs text-emerald-700">উজ্জ্বল ভবিষ्यতের সন্ধানে</div>
+              <div className="text-xl font-bold text-emerald-800">স্কয়ার কিন্ডারগার্টেন স্কুল</div>
+              <div className="text-xs text-emerald-700">Square Kindergarten School</div>
             </div>
           </div>
           <div className="text-xs text-emerald-600 whitespace-nowrap">
