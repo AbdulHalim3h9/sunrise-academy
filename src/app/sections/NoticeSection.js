@@ -26,23 +26,21 @@ const NoticeCard = ({ title, date, isUrgent = false, uri = '#' }) => {
   return (
     <Link 
       href={`/notices${uri}`}
-      className={`block group relative p-3 rounded-lg transition-colors duration-200 ${isUrgent ? 'bg-red-50 border-l-2 border-red-500' : 'bg-white hover:bg-gray-50 border-l-2 border-gray-100'}`}
+      className={`block group relative p-4 rounded-lg transition-all duration-300 ${isUrgent ? 'bg-red-50 border-l-4 border-red-500' : 'bg-white hover:bg-emerald-50 border-l-4 border-emerald-200'}`}
     >
       {isUrgent && (
-        <span className="absolute top-2 right-2 bg-red-100 text-red-700 text-[10px] font-medium px-2 py-0.5 rounded-full">
+        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full animate-pulse">
           জরুরি
-        </span>
-      )}
-      <div className="flex items-start gap-3">
-        <div className={`flex-shrink-0 w-8 h-8 rounded-full ${isUrgent ? 'bg-red-100 text-red-600' : 'bg-emerald-50 text-emerald-600'} flex items-center justify-center mt-0.5`}>
-          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-          </svg>
         </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="font-medium text-sm text-gray-800 leading-snug line-clamp-2">{title}</h3>
-          <p className="text-xs text-gray-500 mt-1.5 flex items-center">
-            <svg className="w-3 h-3 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      )}
+      <div className="flex items-start">
+        <div className={`flex-shrink-0 w-10 h-10 rounded-full ${isUrgent ? 'bg-red-100 text-red-600' : 'bg-emerald-100 text-emerald-600'} flex items-center justify-center mr-3`}>
+          <FaBell className="w-4 h-4" />
+        </div>
+        <div>
+          <h3 className="font-semibold text-gray-800 text-sm leading-tight">{title}</h3>
+          <p className="text-xs text-gray-500 mt-1 flex items-center">
+            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             {date}
@@ -198,11 +196,11 @@ const NoticeSection = () => {
   }
   return (
     <div className="w-full h-full">
-      <div className="bg-white p-4 rounded-lg h-full flex flex-col">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-bold text-gray-800 flex items-center">
-            <span className="bg-emerald-50 p-1.5 rounded-full mr-2">
-              <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <div className="bg-white p-5 rounded-xl shadow-lg border border-gray-100 h-full flex flex-col">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-emerald-800 flex items-center">
+            <span className="bg-emerald-100 p-2 rounded-full mr-2">
+              <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
             </span>
@@ -210,29 +208,31 @@ const NoticeSection = () => {
           </h2>
           <a 
             href="/notices" 
-            className="text-xs font-medium text-emerald-600 hover:text-emerald-800 flex items-center transition-colors"
+            className="text-sm font-medium text-emerald-600 hover:text-emerald-800 flex items-center transition-colors"
             aria-label="সব নোটিশ দেখুন"
           >
             সব দেখুন
-            <svg className="w-2.5 h-2.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            <FaArrowRight className="ml-1 w-3 h-3" />
           </a>
         </div>
-        <div className="space-y-2.5 flex-grow overflow-y-auto pr-1 -mr-1">
+        <div className="space-y-4 mt-4 flex-grow overflow-y-auto max-h-[400px] pr-2 -mr-3">
           {notices.map((notice) => {
             const noticeData = notice.schoolNotices || {};
             const noticeDate = noticeData.noticeDate || notice.date;
             const formattedDate = noticeDate ? new Date(noticeDate).toLocaleDateString('bn-BD', {
               year: 'numeric',
-              month: 'short',
+              month: 'long',
               day: 'numeric'
             }) : '';
             
+            // Only show notices that have notice text
             if (!noticeData.notice?.trim()) return null;
             
+            // Create a unique key by combining notice.id and a hash of the notice text
+            const uniqueKey = `notice-${notice.id}-${noticeData.notice ? noticeData.notice.trim().substring(0, 20).replace(/\s+/g, '-') : ''}`;
+            
             return (
-              <div key={notice.id} className="mb-2">
+              <div key={uniqueKey} className="mb-3">
                 <NoticeCard 
                   title={noticeData.notice.trim()} 
                   date={formattedDate}
@@ -243,16 +243,14 @@ const NoticeSection = () => {
             );
           })}
         </div>
-        <div className="mt-3 pt-2 border-t border-gray-100">
+        <div className="mt-4 text-center">
           <a 
             href="/notices"
-            className="inline-flex items-center justify-center w-full px-3 py-1.5 text-xs font-medium text-emerald-700 hover:bg-emerald-50 rounded transition-colors"
+            className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors"
             aria-label="সমস্ত নোটিশ দেখুন"
           >
             সমস্ত নোটিশ দেখুন
-            <svg className="w-2.5 h-2.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            <FaArrowRight className="ml-2 w-3 h-3" />
           </a>
         </div>
       </div>

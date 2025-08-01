@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
                 {/* School Info */}
                 <div className="md:col-span-4">
                   <div className="flex items-center mb-6">
-                    <SchoolLogo className="h-14 w-14 mr-4" />
+                    <img src="/images/square-kindergarten-logo.jpeg" alt="Square Kindergarten School Logo" className="rounded-full h-14 w-14 mr-4" />
                     <h3 className="text-xl font-bold text-white">স্কয়ার কিন্ডারগার্টেন স্কুল</h3>
                   </div>
                   <p className="text-gray-300 text-sm leading-relaxed mb-4">

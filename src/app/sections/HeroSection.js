@@ -172,7 +172,7 @@ const HeroSection = () => {
                 />
                 {/* Optional: Add overlay text */}
                 <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                  <h2 className="text-white text-3xl md:text-5xl font-bold text-center px-4">
+                  <h2 className="text-white text-3xl md:text-5xl font-bold text-center px-4" style={{ fontFamily: 'var(--font-siyam-rupali)' }}>
                     {image.title}
                   </h2>
                 </div>

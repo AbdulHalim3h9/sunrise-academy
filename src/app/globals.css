@@ -77,6 +77,16 @@ body.menu-open {
   transition: transform 0.3s ease-in-out;
 }
 
+/* ===== Scrollbar Styles ===== */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 /* ===== Navbar Styles ===== */
 .navbar {
   position: fixed;
@@ -482,9 +492,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
+  font-weight: 700 !important;
   line-height: 1.3;
   margin-bottom: 0.75em;
+  font-family: var(--font-siyam-rupali) !important;
 }
 
 h1 { font-size: 2.5rem; }

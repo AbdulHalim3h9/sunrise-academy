@@ -146,23 +146,25 @@ export default function Navigation() {
 
         {/* Mobile Menu Button - Moved to the end of the navbar container */}
         
-        {/* Mobile Menu Sidebar */}
+        {/* Mobile Menu Overlay */}
         <div 
-          className={`fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
+          className={`fixed inset-0 z-40 transition-opacity duration-300 ${
+            isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
           }`}
           aria-hidden={!isOpen}
         >
           {/* Overlay */}
           <div 
-            className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+            className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
             onClick={() => setIsOpen(false)}
           />
           
           {/* Sidebar */}
           <div 
             ref={menuRef}
-            className="fixed top-0 right-0 h-full w-4/5 max-w-sm bg-white shadow-xl flex flex-col z-50"
+            className={`fixed top-0 right-0 h-full w-4/5 max-w-sm bg-white shadow-xl flex flex-col z-50 transform transition-transform duration-300 ease-in-out ${
+              isOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
           >
             {/* Header */}
             <div className="p-4 border-b border-gray-200 bg-emerald-600 text-white">
