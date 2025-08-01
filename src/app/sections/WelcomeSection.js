@@ -1,94 +1,58 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { fadeIn, staggerContainer, textVariant } from '../../utils/motion';
 import PrincipalMessageSection from './PrincipalMessageSection';
 
 const WelcomeSection = () => {
   return (
-    <motion.section 
-      className="py-4  bg-gradient-to-b from-white to-emerald-50"
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.25 }}
-    >
-      <div className="container mx-auto">
-        <motion.div 
-          className="flex flex-col lg:flex-row gap-8"
-          variants={staggerContainer}
-        >
-          <motion.div 
-            className="lg:w-2/3"
-            variants={fadeIn('right', 'tween', 0.2, 1)}
-          >
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300">
-              <motion.div variants={textVariant(0.1)}>
-                <span className="inline-block px-4 py-1.5 text-sm font-medium text-emerald-700 bg-emerald-100/80 rounded-full mb-4">
-                  আমাদের সম্পর্কে
-                </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                  স্কয়ার কিন্ডার গার্টেন স্কুলে স্বাগতম
+    <section className="py-8 md:py-12 bg-white">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto">
+          <div className="lg:w-2/3">
+            <div className="bg-white p-6 rounded-lg">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+                  স্কয়ার কিন্ডার গার্টেন স্কুল
                 </h2>
-                <div className="w-20 h-1 bg-gradient-to-r from-emerald-500 to-emerald-700 rounded-full mb-6"></div>
-              </motion.div>
+                <div className="w-16 h-0.5 bg-emerald-600 mb-5"></div>
+              </div>
               
-              <motion.div 
-                className="prose prose-lg text-gray-600 max-w-none"
-                variants={staggerContainer}
-              >
-                <motion.p 
-                  className="leading-relaxed mb-6 text-gray-700"
-                  variants={fadeIn('up', 'tween', 0.2, 1)}
-                >
-                  স্কয়ার কিন্ডার গার্টেন স্কুলে স্বাগতম। ঝোপগাড়ী, বগুড়ায় অবস্থিত আমাদের প্রতিষ্ঠানটি একটি আদর্শ শিক্ষা প্রতিষ্ঠান যেখানে আমরা শিক্ষার্থীদের সৃজনশীলতা, নৈতিকতা এবং জ্ঞানের সমন্বয়ে গড়ে তুলি। আমাদের অভিজ্ঞ শিক্ষকমণ্ডলী এবং আধুনিক সুযোগ-সুবিধার মাধ্যমে আমরা শিক্ষার্থীদেরকে ভবিষ্যতের জন্য প্রস্তুত করি।
-                </motion.p>
-                <motion.p 
-                  className="leading-relaxed text-gray-700"
-                  variants={fadeIn('up', 'tween', 0.3, 1)}
-                >
-                  আমাদের লক্ষ্য হল এমন একটি পরিবেশ তৈরি করা যেখানে প্রতিটি শিক্ষার্থী তাদের পূর্ণ সম্ভাবনা বিকাশ করতে পারে। আমরা প্রাথমিক শিক্ষার ভিত্তি মজবুত করার পাশাপাশি শিশুদের মানসিক ও শারীরিক বিকাশের উপর বিশেষ গুরুত্ব দেই। আমাদের পাঠদান পদ্ধতি শিশুকেন্দ্রিক এবং আনন্দদায়ক পরিবেশে শিক্ষাদানের উপর ভিত্তি করে গড়ে উঠেছে।
-                </motion.p>
+              <div className="prose prose-sm md:prose-base text-gray-600 max-w-none">
+                <p className="leading-relaxed mb-4 text-gray-700">
+                  স্কয়ার কিন্ডার গার্টেন স্কুলে স্বাগতম। ঝোপগাড়ী, বগুড়ায় অবস্থিত আমাদের প্রতিষ্ঠানটি একটি আদর্শ শিক্ষা প্রতিষ্ঠান যেখানে আমরা শিক্ষার্থীদের সৃজনশীলতা, নৈতিকতা এবং জ্ঞানের সমন্বয়ে গড়ে তুলি।
+                </p>
+                <p className="leading-relaxed text-gray-700 mb-6">
+                  আমাদের লক্ষ্য হল এমন একটি পরিবেশ তৈরি করা যেখানে প্রতিটি শিক্ষার্থী তাদের পূর্ণ সম্ভাবনা বিকাশ করতে পারে। আমাদের অভিজ্ঞ শিক্ষকমণ্ডলী এবং আধুনিক সুযোগ-সুবিধার মাধ্যমে আমরা শিক্ষার্থীদেরকে ভবিষ্যতের জন্য প্রস্তুত করি।
+                </p>
                 
-                <motion.div 
-                  className="mt-8 flex flex-wrap gap-4"
-                  variants={fadeIn('up', 'tween', 0.4, 1)}
-                >
-                  <motion.a
+                <div className="flex flex-wrap gap-3 mt-6">
+                  <a
                     href="/about"
-                    className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-full transition-colors duration-300 flex items-center"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="px-5 py-2.5 text-sm bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded transition-colors duration-200 inline-flex items-center"
                   >
-                    আমাদের সম্পর্কে আরও জানুন
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    আরও জানুন
+                    <svg className="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </motion.a>
-                  <motion.a
+                  </a>
+                  <a
                     href="/admissions"
-                    className="px-6 py-3 bg-white border border-emerald-600 text-emerald-600 hover:bg-emerald-50 font-medium rounded-full transition-colors duration-300 flex items-center"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
+                    className="px-5 py-2.5 text-sm bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium rounded transition-colors duration-200 inline-flex items-center"
                   >
                     ভর্তি প্রক্রিয়া
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                  </motion.a>
-                </motion.div>
-              </motion.div>
+                  </a>
+                </div>
+              </div>
             </div>
-          </motion.div>
+          </div>
           
-          <motion.div 
-            className="lg:w-1/3"
-            variants={fadeIn('left', 'tween', 0.3, 1)}
-          >
+          <div className="lg:w-1/3">
             <PrincipalMessageSection />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -1,238 +1,28 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, getDay, parseISO } from 'date-fns';
-import { bn } from 'date-fns/locale';
-import { FaSpinner } from 'react-icons/fa';
+import React from 'react';
 
 const AcademicCalendar = () => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [holidays, setHolidays] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
-  // Static events (exams, school events, etc.)
-  const staticEvents = [
-    { date: '2025-08-15', title: 'জাতীয় শোক দিবস', type: 'holiday' },
-    { date: '2025-08-25', title: 'শ্রদ্ধাঞ্জলি দিবস', type: 'holiday' },
-    { date: '2025-09-06', title: 'মিড টার্ম পরীক্ষা শুরু', type: 'exam' },
-    { date: '2025-09-10', title: 'মিড টার্ম পরীক্ষা শেষ', type: 'exam' },
-    { date: '2025-10-02', title: 'মহান শিক্ষা দিবস', type: 'event' },
-    { date: '2025-10-15', title: 'বার্ষিক ক্রীড়া দিবস', type: 'event' },
-  ];
-
-  // Fetch holidays from HolidayAPI
-  useEffect(() => {
-    const fetchHolidays = async () => {
-      try {
-        setLoading(true);
-        const key = '2e519668-ea2c-4137-8292-bf1f7c18b993';
-        // Using 2024 as the free tier only provides historical data up to 2024
-        const year = 2024;
-        
-        // Fetch holidays for Bangladesh using direct fetch
-        const response = await fetch(
-          `https://holidayapi.com/v1/holidays?pretty&key=${key}&country=BD&year=${year}`
-        );
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-
-        if (data.holidays) {
-          // Transform holiday data to match our events format
-          const formattedHolidays = data.holidays.map(holiday => ({
-            date: holiday.date,
-            title: holiday.name,
-            type: 'holiday',
-            isPublicHoliday: true
-          }));
-          
-          setHolidays(formattedHolidays);
-        }
-      } catch (err) {
-        console.error('Error fetching holidays:', err);
-        setError('ছুটির দিনগুলি লোড করতে সমস্যা হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHolidays();
-  }, []);
-
-  // Combine static events with dynamic holidays
-  const events = [...staticEvents, ...holidays];
-
-  const nextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
-  const prevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
-
-  const monthStart = startOfMonth(currentMonth);
-  const monthEnd = endOfMonth(monthStart);
-  const startDate = startOfMonth(monthStart);
-  const endDate = endOfMonth(monthEnd);
-
-  const dateFormat = 'MMMM yyyy';
-  const days = ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'];
-
-  const renderHeader = () => {
-    return (
-      <div className="flex items-center justify-between mb-4">
-        <button 
-          onClick={prevMonth}
-          className="p-1 rounded-full hover:bg-gray-100"
-          aria-label="পূর্ববর্তী মাস"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-          </svg>
-        </button>
-        <h3 className="text-lg font-semibold text-gray-800">
-          {format(currentMonth, 'MMMM yyyy', { locale: bn })}
-        </h3>
-        <button 
-          onClick={nextMonth}
-          className="p-1 rounded-full hover:bg-gray-100"
-          aria-label="পরবর্তী মাস"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-          </svg>
-        </button>
-      </div>
-    );
-  };
-
-  const renderDays = () => {
-    return (
-      <div className="grid grid-cols-7 gap-1 mb-2">
-        {days.map((day, i) => (
-          <div key={i} className="text-xs font-medium text-center text-gray-500 py-1">
-            {day}
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const renderCells = () => {
-    const startDate = startOfMonth(currentMonth);
-    const endDate = endOfMonth(startDate);
-    const startDay = getDay(startDate);
-    
-    const daysInMonth = eachDayOfInterval({
-      start: startDate,
-      end: endDate,
-    });
-
-    // Add empty cells for days before the start of the month
-    const emptyStartCells = Array.from({ length: startDay }).map((_, i) => (
-      <div key={`empty-start-${i}`} className="h-8"></div>
-    ));
-
-    const dateCells = daysInMonth.map((day, i) => {
-      const dayEvents = events.filter(event => {
-        const eventDate = new Date(event.date);
-        return isSameDay(day, eventDate);
-      });
-
-      const isToday = isSameDay(day, new Date());
-      
-      return (
-        <div 
-          key={i} 
-          className={`relative p-1 h-20 border border-gray-100 text-sm overflow-hidden ${
-            !isSameMonth(day, currentMonth) ? 'bg-gray-50 text-gray-400' : 'text-gray-800'
-          }`}
-        >
-          <div className={`text-right ${isToday ? 'bg-emerald-600 text-white' : 'text-gray-700'} rounded-full w-6 h-6 flex items-center justify-center ml-auto text-sm font-medium`}>
-            {format(day, 'd')}
-          </div>
-          <div className="mt-1 space-y-0.5 overflow-hidden h-12">
-            {dayEvents.map((event, i) => (
-              <div 
-                key={i} 
-                className={`text-xs truncate px-1 rounded ${
-                  event.type === 'holiday' 
-                    ? 'bg-red-100 text-red-800' 
-                    : event.type === 'exam' 
-                      ? 'bg-yellow-100 text-yellow-800' 
-                      : 'bg-blue-100 text-blue-800'
-                }`}
-                title={event.title}
-              >
-                {event.title}
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    });
-
-    return (
-      <div className="grid grid-cols-7 gap-px bg-gray-100">
-        {[...emptyStartCells, ...dateCells]}
-      </div>
-    );
-  };
-
-  if (loading) {
-    return (
-      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-        <h3 className="text-lg font-bold text-emerald-800 mb-4 pb-2 border-b border-emerald-200">
-          <span className="inline-block mr-2">📅</span>
-          একাডেমিক ক্যালেন্ডার
-        </h3>
-        <div className="flex justify-center items-center py-8">
-          <FaSpinner className="animate-spin text-emerald-600 text-2xl mr-2" />
-          <span className="text-gray-600">ক্যালেন্ডার লোড হচ্ছে...</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-        <h3 className="text-lg font-bold text-emerald-800 mb-4 pb-2 border-b border-emerald-200">
-          <span className="inline-block mr-2">📅</span>
-          একাডেমিক ক্যালেন্ডার
-        </h3>
-        <div className="bg-red-50 border-l-4 border-red-500 p-4">
-          <p className="text-red-700">{error}</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-      <h3 className="text-lg font-bold text-emerald-800 mb-4 pb-2 border-b border-emerald-200">
-        <span className="inline-block mr-2">📅</span>
-        একাডেমিক ক্যালেন্ডার {new Date().getFullYear()}
-      </h3>
-      <div className="calendar">
-        {renderHeader()}
-        {renderDays()}
-        {renderCells()}
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 w-full max-w-md mx-auto">
+      <div className="p-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white text-center">
+        <h3 className="text-base font-bold flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          একাডেমিক ক্যালেন্ডার
+        </h3>
       </div>
-      <div className="mt-3 flex flex-wrap gap-4 text-xs">
-        <div className="flex items-center">
-          <span className="w-3 h-3 bg-red-100 border border-red-300 mr-1"></span>
-          <span>সরকারি ছুটি</span>
+      <div className="p-1">
+        <div className="overflow-hidden rounded-b-md">
+          <iframe 
+            src="https://calendar.google.com/calendar/embed?height=400&wkst=7&bgcolor=%23ffffff&ctz=Asia%2FDhaka&title=%E0%A6%A6%E0%A6%BF%E0%A6%A8%E0%A6%AA%E0%A7%81%E0%A6%9E%E0%A7%8D%E0%A6%9C%E0%A6%BF&hl=bn&showTitle=0&showPrint=0&showNav=1&showDate=1&showTabs=0&src=Z2FuaXRpay50ZWNoQGdtYWlsLmNvbQ&src=NDlxb2JmamltdTZyZ3IyM2RyZzVjMGNpcW9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=NDlrdTJkbDZ1NmgzdHF2YjBqczUzbW9jMmtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZW4uYmQjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039BE5&color=%23AD1457&color=%23A79B8E&color=%230B8043" 
+            className="w-full border-0" 
+            height="400" 
+            frameBorder="0" 
+            scrolling="no"
+            title="Academic Calendar"
+          ></iframe>
         </div>
-        <div className="flex items-center">
-          <span className="w-3 h-3 bg-yellow-100 border border-yellow-300 mr-1"></span>
-          <span>পরীক্ষা</span>
-        </div>
-        <div className="flex items-center">
-          <span className="w-3 h-3 bg-blue-100 border border-blue-300 mr-1"></span>
-          <span>অনুষ্ঠান</span>
-        </div>
-      </div>
-      <div className="mt-2 text-xs text-gray-500 text-right">
-        <p>সরকারি ছুটির তথ্য ২০২৪ সালের (HolidayAPI থেকে সংগৃহীত)</p>
       </div>
     </div>
   );

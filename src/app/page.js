@@ -149,10 +149,8 @@ export default function Home() {
         </div>
       </SectionWrapper>
       
-      <SectionWrapper className="py-4  bg-emerald-50">
-        <div className="container mx-auto">
+      <SectionWrapper className="bg-emerald-50">
           <WelcomeSection />
-        </div>
       </SectionWrapper>
       
       {/* Announcements & Calendar Section */}

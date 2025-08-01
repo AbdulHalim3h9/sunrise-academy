@@ -111,7 +111,7 @@ const HeroSection = () => {
     );
   }
   return (
-    <div className="w-full relative overflow-hidden rounded-2xl shadow-xl">
+    <div className="relative w-full overflow-hidden rounded-lg shadow-xl">
       <div className="relative h-[30vh] min-h-[300px] md:h-[50vh] md:min-h-[500px] w-full group">
         {/* Navigation Arrows - Only show if more than one image */}
         {heroImages.length > 1 && (
@@ -161,7 +161,7 @@ const HeroSection = () => {
                        image.featuredImage?.node?.altText || 
                        image.title || 
                        'Hero Image'}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-lg"
                   initial={{ scale: 1.1 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 8, ease: 'easeInOut' }}

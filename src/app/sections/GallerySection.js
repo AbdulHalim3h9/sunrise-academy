@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const GallerySection = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -16,29 +15,28 @@ const GallerySection = ({ images }) => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {images.map((image, index) => (
-            <motion.div 
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 px-4 sm:px-6">
+          {images.slice(0, 3).map((image, index) => (
+            <div 
               key={index} 
-              className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
-              whileHover={{ y: -5 }}
+              className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               onClick={() => setSelectedImage(image)}
             >
-              <div className="aspect-w-16 aspect-h-9 w-full">
+              <div className="aspect-[3/2] w-full">
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"
                 />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                <div className="text-white">
-                  <h3 className="font-semibold text-lg">{image.title}</h3>
-                  <p className="text-sm opacity-90 line-clamp-2">{image.description}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <div className="text-white">
+                    <h3 className="font-semibold text-lg">{image.title}</h3>
+                    <p className="text-sm opacity-90 line-clamp-2">{image.description}</p>
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -54,38 +52,33 @@ const GallerySection = ({ images }) => {
       </div>
 
       {/* Image Modal */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div 
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedImage(null)}
-          >
-            <div className="relative max-w-4xl w-full">
-              <button 
-                className="absolute -top-10 right-0 text-white text-2xl hover:text-emerald-400 transition-colors"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedImage(null);
-                }}
-              >
-                ✕
-              </button>
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                className="w-full max-h-[80vh] object-contain"
-              />
-              <div className="bg-white p-4 mt-2 rounded-b-lg">
-                <h3 className="text-xl font-semibold text-gray-800">{selectedImage.title}</h3>
-                <p className="text-gray-600 mt-1">{selectedImage.description}</p>
-              </div>
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-4xl w-full">
+            <button 
+              className="absolute -top-10 right-0 text-white text-2xl hover:text-emerald-400 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage(null);
+              }}
+            >
+              ✕
+            </button>
+            <img
+              src={selectedImage.src}
+              alt={selectedImage.alt}
+              className="w-full max-h-[80vh] object-contain"
+            />
+            <div className="bg-white p-4 mt-2 rounded-b-lg">
+              <h3 className="text-xl font-semibold text-gray-800">{selectedImage.title}</h3>
+              <p className="text-gray-600 mt-1">{selectedImage.description}</p>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
