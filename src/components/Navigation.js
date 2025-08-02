@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import SchoolLogo from './SchoolLogo';
 
 const navLinks = [
@@ -84,8 +85,19 @@ export default function Navigation() {
     setOpenDropdown(openDropdown === label ? null : label);
   };
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
-    <nav className="navbar">
+    <nav className="navbar relative">
+      <motion.div 
+        className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-700 origin-left z-50"
+        style={{ scaleX }}
+      />
       <div className="navbar-container">
         {/* Logo and School Info */}
         <Link href="/" className="navbar-brand">
@@ -110,8 +122,8 @@ export default function Navigation() {
                 <div className="relative">
                   <button 
                     type="button"
-                    className="flex items-center"
-                    onClick={() => {}}
+                    className="flex items-center nav-link-hover"
+                    onClick={() => toggleDropdown(link.label)}
                   >
                     {link.label}
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +146,7 @@ export default function Navigation() {
               ) : (
                 <Link 
                   href={link.href}
-                  className={pathname === link.href ? 'active' : ''}
+                  className={`nav-link-hover ${pathname === link.href ? 'active' : ''}`}
                   aria-current={pathname === link.href ? 'page' : undefined}
                 >
                   {link.label}
