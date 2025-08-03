@@ -3,9 +3,72 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Import custom fonts */
+/* Font imports */
 @import url('https://fonts.maateen.me/siyam-rupali/font.css');
-@import url('https://fonts.maateen.me/tiro-bangla/font.css');
+
+/* Base styles */
+:root {
+  --font-siyam-rupali: 'Siyam Rupali', 'Arial Unicode MS', 'Arial', sans-serif;
+  --color-primary: #14532d;
+  --color-secondary: #065f46;
+  --color-accent: #059669;
+  --color-light: #d1fae5;
+  --color-dark: #013220;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 18px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-siyam-rupali);
+  line-height: 1.7;
+  color: #111827;
+  background: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-siyam-rupali);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 0.75em;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1.125rem; }
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+
+/* Font utility classes */
+.font-siyam-rupali {
+  font-family: var(--font-siyam-rupali);
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  html { font-size: 16px; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+}
 
 /* ===== School Info Styles ===== */
 .school-info {
@@ -528,9 +591,6 @@ a {
   transition: color 0.2s;
 }
 
-a:hover {
-  text-decoration: underline;
-}
 
 @media (max-width: 768px) {
   html { font-size: 16px; }
@@ -653,6 +713,14 @@ body {
     padding-left: 2rem; /* lg:px-8 */
     padding-right: 2rem; /* lg:px-8 */
   }
+}
+
+/* Navbar matte background */
+.navbar-matte-bg {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
 }
 
 /* Custom animations */

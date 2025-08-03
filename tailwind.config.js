@@ -8,7 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-siyam-rupali)', 'system-ui', 'sans-serif'],
+        sans: ['Siyam Rupali', 'Tiro Bangla', 'system-ui', 'sans-serif'],
+        'tiro-bangla': ['Tiro Bangla', 'system-ui', 'sans-serif'],
+        'siyam-rupali': ['Siyam Rupali', 'system-ui', 'sans-serif'],
       },
       colors: {
         primary: 'rgb(20, 83, 45)',

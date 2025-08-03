@@ -1,8 +1,8 @@
 import './globals.css'
-import NewsTicker from '../components/NewsTicker'
 import Navigation from '../components/Navigation'
 import SchoolLogo from '../components/SchoolLogo'
 import ApolloClientProvider from '../providers/ApolloProvider'
+import Head from 'next/head';
 
 export const metadata = {
   title: 'Square Kindergarten School | স্কয়ার কিন্ডারগার্টেন স্কুল',
@@ -11,17 +11,28 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="bn" className="font-siyam-rupali">
+      <Head>
+        <link rel="preconnect" href="https://fonts.maateen.me" />
+        <link 
+          href="https://fonts.maateen.me/tiro-bangla/font.css" 
+          rel="stylesheet"
+        />
+        <link 
+          href="https://fonts.maateen.me/siyam-rupali/font.css" 
+          rel="stylesheet"
+        />
+      </Head>
       <body className="min-h-screen bg-gray-100">
         <ApolloClientProvider>
-          <Navigation />
-          <div className="pt-16">
-            <NewsTicker />
-            <main>{children}</main>
-          </div>
-          <footer className="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
-            {/* Background pattern */}
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] opacity-10"></div>
+          <div className="flex flex-col min-h-screen">
+            <Navigation />
+            <div className="flex-grow">
+              <main className="mt-0">{children}</main>
+            </div>
+            <footer className="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
+              {/* Background pattern */}
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] opacity-10"></div>
             
             <div className="w-full">
               <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -30,7 +41,7 @@ export default function RootLayout({ children }) {
                 <div className="md:col-span-4">
                   <div className="flex items-center mb-6">
                     <img src="/images/square-kindergarten-logo.jpeg" alt="Square Kindergarten School Logo" className="rounded-full h-14 w-14 mr-4" />
-                    <h3 className="text-xl font-bold text-white">স্কয়ার কিন্ডারগার্টেন স্কুল</h3>
+                    <h3 className="text-2xl font-bold text-white">স্কয়ার কিন্ডারগার্টেন স্কুল</h3>
                   </div>
                   <p className="text-gray-300 text-sm leading-relaxed mb-4">
                     জ্ঞান, নৈতিকতা ও আধুনিক শিক্ষার সমন্বয়ে গড়ে উঠেছে আমাদের শিক্ষা প্রতিষ্ঠান। ভবিষ্যতের জন্য দক্ষ ও নৈতিক নাগরিক গড়ে তোলাই আমাদের লক্ষ্য।
@@ -134,6 +145,7 @@ export default function RootLayout({ children }) {
               </div>
           </div>
         </footer>
+        </div>
         </ApolloClientProvider>
       </body>
     </html>
