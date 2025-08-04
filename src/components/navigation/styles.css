@@ -1,0 +1,26 @@
+.navbar-matte-bg {
+      background: rgba(220, 252, 231, 0.98); /* Brighter light green background */
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-matte-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(187, 247, 208, 0.8) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(187, 247, 208, 0.8) 1px, transparent 1px);
+      background-size: 15px 15px;
+      background-color: rgba(209, 250, 229, 0.5);
+      z-index: -1;
+    }
+    
+    body.menu-open {
+      overflow: hidden;
+    }
