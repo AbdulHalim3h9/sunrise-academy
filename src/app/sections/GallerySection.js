@@ -6,7 +6,7 @@ const GallerySection = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
-    <section className="py-12 bg-white">
+    <section className="py-12">
       <div className="container mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-gray-800 mb-2">আমাদের গ্যালারি</h2>

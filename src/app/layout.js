@@ -23,11 +23,14 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </Head>
-      <body className="min-h-screen bg-gray-100">
+      <body className="min-h-screen bg-gray-100" style={{
+        backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%239C92AC\' fill-opacity=\'0.15\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+        backgroundRepeat: 'repeat'
+      }}>
         <ApolloClientProvider>
           <div className="flex flex-col min-h-screen">
             <Navigation />
-            <div className="flex-grow">
+            <div className="flex-grow px-4 sm:px-6 lg:px-8">
               <main className="mt-0">{children}</main>
             </div>
             <footer className="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
@@ -125,7 +128,7 @@ export default function RootLayout({ children }) {
               </div>
 
               {/* Copyright */}
-              <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+              <div className="border-t border-gray-800 mt-12 pt-8 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
                 <p className="text-gray-400 text-sm text-center md:text-left mb-4 md:mb-0">
                   © {new Date().getFullYear()} স্কয়ার কিন্ডার গার্টেন স্কুল, ঝোপগাড়ী, বগুড়া। সর্বস্বত্ব সংরক্ষিত।
                 </p>

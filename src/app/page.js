@@ -154,7 +154,7 @@ export default function Home() {
       </SectionWrapper>
       
       {/* Announcements & Calendar Section */}
-      <SectionWrapper className="py-4  bg-gradient-to-b from-emerald-50 to-white">
+      <SectionWrapper className="py-4">
         <div className="container mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Announcements - Takes 2/3 width on large screens */}

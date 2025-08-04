@@ -59,17 +59,24 @@ export default function MobileNav({ navLinks, pathname, isOpen, setIsOpen, menuR
                       </svg>
                     </summary>
                     <ul className="mt-1 pl-4 space-y-1">
-                      {link.subItems.map((subItem) => (
-                        <li key={subItem.label}>
-                          <Link 
-                            href={subItem.href}
-                            className="block p-3 pl-6 text-gray-600 rounded-lg hover:bg-gray-100 hover:text-emerald-800 transition-colors"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {subItem.label}
-                          </Link>
-                        </li>
-                      ))}
+                      {link.subItems.map((subItem) => {
+                        const handleClick = (e) => {
+                          e.stopPropagation();
+                          setIsOpen(false);
+                        };
+                        
+                        return (
+                          <li key={subItem.label}>
+                            <Link 
+                              href={subItem.href}
+                              className="block p-3 pl-6 text-gray-600 rounded-lg hover:bg-gray-100 hover:text-emerald-800 transition-colors"
+                              onClick={handleClick}
+                            >
+                              {subItem.label}
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </details>
                 ) : (
@@ -80,7 +87,10 @@ export default function MobileNav({ navLinks, pathname, isOpen, setIsOpen, menuR
                         ? 'bg-emerald-50 text-emerald-800 font-semibold' 
                         : 'text-gray-700 hover:bg-gray-100'
                     }`}
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsOpen(false);
+                    }}
                   >
                     {link.label}
                   </Link>

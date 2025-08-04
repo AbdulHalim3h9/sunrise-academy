@@ -11,8 +11,8 @@ const PrincipalMessageSection = () => {
       <div className="flex flex-col sm:flex-row gap-4 flex-grow">
         <div className="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-50 rounded-full overflow-hidden flex-shrink-0 border-2 border-emerald-100">
           <img
-            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
-            alt="প্রিন্সিপাল"
+            src="/images/ruhul.jpeg"
+            alt="প্রিন্সিপাল মোঃ রুহুল আমিন সরকার"
             className="w-full h-full object-cover"
             onError={(e) => {
               e.target.onerror = null;

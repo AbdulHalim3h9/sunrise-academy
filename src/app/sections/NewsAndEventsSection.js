@@ -115,14 +115,14 @@ const NewsAndEventsSection = () => {
 
 
   return (
-    <section className="py-10 bg-gray-50 relative">
+    <section className="py-10 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'var(--font-siyam-rupali)' }}>খবর ও ইভেন্ট</h2>
           <div className="w-16 h-1 bg-emerald-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-4">
+        <div className="relative max-w-6xl mx-auto">
           {/* Navigation Buttons */}
           {showLeftButton && (
             <button 
@@ -136,20 +136,17 @@ const NewsAndEventsSection = () => {
           
           <div 
             ref={scrollContainer}
-            className="flex gap-6 pb-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+            className="flex gap-4 pb-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-2 px-2"
             style={{
               scrollbarWidth: 'none', // Firefox
               msOverflowStyle: 'none', // IE and Edge
-              paddingLeft: '0.5rem',
-              paddingRight: '0.5rem',
-              scrollPadding: '0 1rem',
               WebkitOverflowScrolling: 'touch',
             }}
           >
             {newsAndEvents.map((item) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 w-80 snap-start relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-64 group"
+                className="flex-shrink-0 w-64 md:w-72 snap-start relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-52 md:h-60 group mx-1"
               >
                 <img
                   src={item.image}

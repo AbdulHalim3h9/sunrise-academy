@@ -6,71 +6,38 @@ import { fadeInUp, staggerContainer } from '../../utils/motion';
 const AnnouncementCard = ({ title, date, description, isNew = false, index }) => {
   return (
     <motion.div 
-      className="group relative h-full bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100"
+      className="group relative h-full bg-white/80 hover:bg-white transition-all duration-300 overflow-hidden border border-gray-200 hover:border-emerald-200 shadow-sm hover:shadow-md rounded-lg"
       variants={fadeInUp}
-      whileHover={{ y: -5, transition: { duration: 0.3 } }}
     >
-      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 to-emerald-700"></div>
+      <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-emerald-500 to-emerald-700"></div>
       
-      {isNew && (
-        <motion.div 
-          className="absolute top-3 right-3 bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded-full z-10"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ 
-            type: 'spring',
-            stiffness: 260,
-            damping: 20,
-            delay: index * 0.1 + 0.3
-          }}
-        >
-          নতুন
-        </motion.div>
-      )}
-      
-      <div className="p-6 h-full flex flex-col">
-        <motion.div 
-          className="flex items-center mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 + 0.1 }}
-        >
-          <motion.div 
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 mr-3"
-            whileHover={{ rotate: 10, scale: 1.1 }}
-          >
-            <FaBullhorn className="w-5 h-5" />
-          </motion.div>
-          <h3 className="text-lg font-bold text-gray-800">{title}</h3>
-        </motion.div>
-        
-        <motion.div 
-          className="flex items-center text-sm text-gray-500 mb-4"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 + 0.2 }}
-        >
-          <FaCalendarAlt className="w-3.5 h-3.5 mr-1.5 text-emerald-500" />
-          <span>{date}</span>
-        </motion.div>
-        
-        <motion.p 
-          className="text-gray-600 mb-5 flex-grow"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: index * 0.1 + 0.3 }}
-        >
-          {description}
-        </motion.p>
-        
-        <motion.button 
-          className="inline-flex items-center text-sm font-medium text-emerald-600 hover:text-emerald-700 mt-auto group"
-          whileHover={{ x: 5 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-        >
-          <span className="group-hover:underline">বিস্তারিত জানুন</span>
-          <FaArrowRight className="ml-2 w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-        </motion.button>
+      <div className="p-4 h-full flex flex-col">
+        <div className="flex items-start gap-3">
+          <div className="flex-shrink-0 mt-0.5">
+            <FaBullhorn className="w-4 h-4 text-emerald-600" />
+          </div>
+          
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-medium text-gray-800 leading-tight mb-1 line-clamp-2" style={{ fontFamily: 'var(--font-siyam-rupali)' }}>
+              {title}
+            </h3>
+            
+            <div className="flex items-center text-xs text-gray-500 mt-1">
+              <FaCalendarAlt className="w-3 h-3 mr-1 text-emerald-500 flex-shrink-0" />
+              <span className="truncate">{date}</span>
+              
+              {isNew && (
+                <span className="ml-2 px-1.5 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-medium rounded">
+                  নতুন
+                </span>
+              )}
+            </div>
+            
+            <p className="text-xs text-gray-600 mt-1.5 line-clamp-2">
+              {description}
+            </p>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -78,7 +45,7 @@ const AnnouncementCard = ({ title, date, description, isNew = false, index }) =>
 
 const AnnouncementsSection = ({ announcements }) => {
   return (
-    <section className="py-4  bg-gradient-to-b from-white to-emerald-50">
+    <section className="py-4">
       <motion.div 
         className="container mx-auto"
         variants={staggerContainer}
@@ -115,7 +82,7 @@ const AnnouncementsSection = ({ announcements }) => {
         </motion.div>
         
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3 max-w-4xl mx-auto"
           variants={staggerContainer}
         >
           {announcements.map((announcement, index) => (
