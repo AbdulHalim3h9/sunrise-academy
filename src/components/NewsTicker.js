@@ -142,7 +142,7 @@ const NewsTicker = () => {
       onMouseLeave={() => setIsPaused(false)}
       style={{ padding: '0' }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-1">
         <div className="flex items-center">
           {/* Label */}
           <div className="flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full bg-emerald-600 text-white shadow-sm mr-2">

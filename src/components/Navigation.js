@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import SchoolInfo from './navigation/SchoolInfo';
+
 import DesktopNav from './navigation/DesktopNav';
 import MobileNav from './navigation/MobileNav';
 import { navLinks } from './navigation/NavLinks';
@@ -117,55 +117,49 @@ export default function Navigation() {
             className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-700 origin-left z-50"
             style={{ scaleX }}
           />
-          <div className="max-w-7xl mx-auto px-4">
-            {/* Regular Header */}
-            <div className={isScrolled ? 'hidden' : 'block'}>
-              <SchoolInfo isScrolled={isScrolled} toggleMenu={toggleMenu} isOpen={isOpen} buttonRef={buttonRef} />
-            </div>
-            
-            {/* Compact Mobile Header (shown when scrolled) */}
-            <div className={`lg:hidden ${isScrolled ? 'flex items-center justify-between h-16' : 'hidden'}`}>
-              <a href="/" className="flex items-center">
-                <img 
-                  src="/images/square-kindergarten-logo.jpeg"
-                  alt="Logo"
-                  className="h-10 w-10 rounded-full mr-3"
+          <div className={`mx-auto px-0 sm:px-6 lg:px-0 transition-all duration-300 ${isMobile ? 'h-16' : (isScrolled ? 'h-16' : 'h-36')}`}>
+            <div className="relative h-full">
+              {isMobile ? (
+                <div className="flex items-center justify-between h-full">
+                  <Link href="/" className="flex items-center hover:opacity-90">
+                    <img 
+                      src="/images/square-kindergarten-logo.jpeg" 
+                      alt="স্কয়ার কিন্ডারগার্টেন স্কুল"
+                      className="h-10 w-10 rounded-full border-2 border-emerald-600 flex-shrink-0 mr-3"
+                    />
+                    <div className="text-left">
+                      <span className="font-black text-gray-800 text-base block truncate">
+                        স্কয়ার কিন্ডারগার্টেন
+                      </span>
+                      <p className="text-xs text-gray-600 font-siyam-rupali font-semibold whitespace-nowrap">
+                        ইনস্টিটিউট কোড: ২০০৬৮ | EIIN: ১৩২৯১৩
+                      </p>
+                    </div>
+                  </Link>
+                  <div ref={buttonRef} className="ml-auto flex-shrink-0">
+                    <button 
+                      type="button"
+                      className="p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500 transition-colors"
+                      onClick={() => toggleMenu()}
+                      aria-expanded={isOpen}
+                      aria-controls="mobile-menu"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <DesktopNav 
+                  navLinks={navLinks}
+                  pathname={pathname}
+                  openDropdown={openDropdown}
+                  toggleDropdown={toggleDropdown}
+                  dropdownRefs={dropdownRefs}
+                  isScrolled={isScrolled}
                 />
-                <span className="font-bold text-gray-800">স্কয়ার কিন্ডারগার্টেন</span>
-              </a>
-              <div className="flex items-center">
-                <button 
-                  type="button"
-                  className="p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500"
-                  onClick={() => toggleMenu()}
-                  aria-expanded={isOpen}
-                  aria-label="Toggle menu"
-                  ref={buttonRef}
-                >
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden lg:block">
-              <DesktopNav 
-                navLinks={navLinks}
-                pathname={pathname}
-                openDropdown={openDropdown}
-                toggleDropdown={toggleDropdown}
-                dropdownRefs={dropdownRefs}
-                isScrolled={isScrolled}
-                toggleMenu={toggleMenu}
-                isOpen={isOpen}
-                buttonRef={buttonRef}
-              />
-            </div>
-            
-            {/* Mobile Navigation */}
-            <div className="lg:hidden">
+              )}
               <MobileNav 
                 navLinks={navLinks}
                 pathname={pathname}
@@ -174,14 +168,13 @@ export default function Navigation() {
                 menuRef={menuRef}
               />
             </div>
-            
-            <div className="w-full">
-              <NewsTicker />
-            </div>
+          </div>
+          <div className="w-full">
+            <NewsTicker />
           </div>
         </motion.div>
       </div>
-      <div className="h-36 sm:h-44 md:h-48"></div>
+      <div className={`${isMobile ? 'h-28' : 'h-44'}`}></div>
     </>
   );
 }
