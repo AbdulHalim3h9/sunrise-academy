@@ -6,7 +6,10 @@ export const navLinks = [
           { href: "/about", label: "প্রতিষ্ঠান পরিচিতি" },
           { href: "/protisthaner-pathdaner-onumoti", label: "প্রতিষ্ঠানের পাঠদানের অনুমতি ও স্বীকৃতি" },
           { href: "/srenibhobit-onumodit-shakha", label: "শ্রেণিভিত্তিক অনুমোদিত শাখা" },
-          { href: "/ek-njore-shob-tothyo", label: "এক নজরে সকল তথ্য" }
+          { href: "/ek-njore-shob-tothyo", label: "এক নজরে সকল তথ্য" },
+          { href: "/about/information-center", label: "তথ্য কেন্দ্রের ঠিকানা" },
+          { href: "/about/grievance-redressal-officer", label: "অভিযোগ নিষ্পত্তি কর্মকর্তা" },
+          { href: "/about/latest-mpo-copy", label: "বিদ্যালয়ের সর্বশেষ এমপিও কপি" }
         ]
       },
       { 

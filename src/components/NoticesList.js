@@ -19,7 +19,7 @@ const GET_NOTICES = gql`
       nodes {
         id
         title
-        excerpt
+        content
         date
         uri
         schoolNoticeSettings {
@@ -104,10 +104,14 @@ const NoticesList = ({ limit = 10, showViewAll = true }) => {
                 </p>
               )}
               
-              {notice.excerpt && (
+              {notice.content && (
                 <div 
                   className="text-gray-600 text-sm line-clamp-2"
-                  dangerouslySetInnerHTML={{ __html: notice.excerpt }}
+                  dangerouslySetInnerHTML={{ 
+                    __html: notice.content.length > 150 
+                      ? notice.content.substring(0, 150) + '...' 
+                      : notice.content 
+                  }}
                 />
               )}
               

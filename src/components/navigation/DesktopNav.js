@@ -9,17 +9,8 @@ export default function DesktopNav({ navLinks, pathname, openDropdown, toggleDro
           <div className={`${isScrolled ? '' : 'text-center h-full'}`}>
           {link.subItems ? (
             <div 
-                className="relative h-full"
-                onMouseEnter={(e) => {
-                    e.preventDefault();
-                    toggleDropdown(link.label);
-                  }}
-                onMouseLeave={() => {
-                // Add a small delay before closing the dropdown
-                setTimeout(() => {
-                  toggleDropdown(null);
-                }, 300);
-              }}
+                className="relative h-full group"
+                onMouseEnter={() => toggleDropdown(link.label)}
               >
               <button 
                 type="button"
@@ -28,40 +19,60 @@ export default function DesktopNav({ navLinks, pathname, openDropdown, toggleDro
                     ? 'bg-emerald-600 text-white'
                     : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-800'
                 }`}
-                
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleDropdown(openDropdown === link.label ? null : link.label);
+                }}
               >
                 {link.label}
-                <svg 
-                  className="w-4 h-4 ml-1.5 transition-transform duration-200"
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24" 
-                  style={{ transform: openDropdown === link.label ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                <svg
+                  className={`ml-1 w-4 h-4 transition-transform duration-200 ${
+                    openDropdown === link.label ? 'transform rotate-180' : ''
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </button>
-              {openDropdown === link.label && (
-                <motion.ul 
-                  className="absolute right-0 mt-2 py-2 w-56 bg-white rounded-lg shadow-xl z-50 origin-top-right"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.15, ease: 'easeOut' }}
+              <div className={`${openDropdown === link.label ? 'block' : 'hidden'} group-hover:block`}>
+                <div 
+                  ref={el => dropdownRefs.current[link.label] = el}
+                  className="dropdown-menu absolute left-0 mt-0 pt-1 w-56 rounded-b-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+                  style={{
+                    // Position the dropdown right below the parent item with no gap
+                    transform: 'translateY(-1px)'
+                  }}
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  {link.subItems.map((subItem) => (
-                    <li key={subItem.label}>
-                      <Link 
-                        href={subItem.href}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-colors duration-200 focus:outline-none"
-                        onClick={() => toggleDropdown(null)}
-                      >
-                        {subItem.label}
-                      </Link>
-                    </li>
-                  ))}
-                </motion.ul>
-              )}
+                  <motion.ul 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                    className="py-1"
+                  >
+                    {link.subItems.map((subItem) => (
+                      <li key={subItem.label}>
+                        <Link 
+                          href={subItem.href}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-colors duration-200 focus:outline-none"
+                          onClick={() => toggleDropdown(null)}
+                        >
+                          {subItem.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </motion.ul>
+                </div>
+              </div>
             </div>
           ) : (
             <Link 

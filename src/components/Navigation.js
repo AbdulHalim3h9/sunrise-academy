@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
+import TopBar from './navigation/TopBar';
 import DesktopNav from './navigation/DesktopNav';
 import MobileNav from './navigation/MobileNav';
 import { navLinks } from './navigation/NavLinks';
@@ -110,16 +111,24 @@ export default function Navigation() {
 
   return (
     <>
-      {/* Main Navigation */}
-      <div className={`fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300 ${isScrolled ? 'shadow-md' : 'shadow-sm'}`}>
-        <motion.div className="w-full bg-white" initial={false}>
-          <motion.div 
-            className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-700 origin-left z-50"
-            style={{ scaleX }}
-          />
-          <div className={`mx-auto px-0 sm:px-6 lg:px-0 transition-all duration-300 ${isMobile ? 'h-16' : (isScrolled ? 'h-16' : 'h-36')}`}>
-            <div className="relative h-full">
-              {isMobile ? (
+      {/* Scrolling Indicator - Placed above everything */}
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-emerald-700 origin-left z-[60]"
+        style={{ scaleX }}
+      />
+      
+      {/* TopBar - Fixed at the top */}
+      <div className="fixed top-0 left-0 right-0 z-40">
+        <TopBar />
+      </div>
+      
+      {/* Main Navigation - Positioned below TopBar */}
+      <div className="fixed top-10 left-0 right-0 z-30">
+        <div className={`w-full bg-white transition-all duration-300 ${isScrolled ? 'shadow-md' : 'shadow-sm'}`}>
+          <div className="w-full bg-white">
+            <div className={`mx-auto px-0 sm:px-6 lg:px-0 transition-all duration-300 ${isMobile ? 'h-16' : (isScrolled ? 'h-16' : 'h-36')}`}>
+              <div className="relative h-full">
+                {isMobile ? (
                 <div className="flex items-center justify-between h-full">
                   <Link href="/" className="flex items-center hover:opacity-90">
                     <img 
@@ -160,6 +169,7 @@ export default function Navigation() {
                   isScrolled={isScrolled}
                 />
               )}
+              </div>
               <MobileNav 
                 navLinks={navLinks}
                 pathname={pathname}
@@ -168,11 +178,11 @@ export default function Navigation() {
                 menuRef={menuRef}
               />
             </div>
+            <div className="w-full">
+              <NewsTicker />
+            </div>
           </div>
-          <div className="w-full">
-            <NewsTicker />
-          </div>
-        </motion.div>
+        </div>
       </div>
       <div className={`${isMobile ? 'h-28' : 'h-44'}`}></div>
     </>

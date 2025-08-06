@@ -1,8 +1,14 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaBell, FaArrowRight, FaExclamationCircle } from 'react-icons/fa';
 import { useQuery, gql } from '@apollo/client';
-import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+// Dynamically import the NoticePopup to avoid SSR issues with modals
+const NoticePopup = dynamic(
+  () => import('@/components/notices/NoticePopup'),
+  { ssr: false }
+);
 
 // GraphQL query for latest notices
 const GET_LATEST_NOTICES = gql`
@@ -10,7 +16,9 @@ const GET_LATEST_NOTICES = gql`
     schoolNotices(first: $first) {
       edges {
         node {
+          id
           uri
+          content
           schoolNotices {
             notice
             noticeDate
@@ -22,76 +30,85 @@ const GET_LATEST_NOTICES = gql`
   }
 `;
 
-const NoticeCard = ({ title, date, isUrgent = false, uri = '#' }) => {
+const NoticeCard = ({ title, date, isUrgent = false, onClick }) => {
   return (
-    <Link 
-      href={`/notices${uri}`}
-      className={`block group relative p-4 rounded-lg transition-all duration-300 ${isUrgent ? 'bg-red-50 border-l-4 border-red-500' : 'bg-white hover:bg-emerald-50 border-l-4 border-emerald-200'}`}
+    <div 
+      onClick={onClick}
+      className="block group cursor-pointer"
     >
-      {isUrgent && (
-        <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full animate-pulse">
-          জরুরি
-        </div>
-      )}
-      <div className="flex items-start">
-        <div className={`flex-shrink-0 w-10 h-10 rounded-full ${isUrgent ? 'bg-red-100 text-red-600' : 'bg-emerald-100 text-emerald-600'} flex items-center justify-center mr-3`}>
-          <FaBell className="w-4 h-4" />
-        </div>
-        <div>
-          <h3 className="font-semibold text-gray-800 text-sm leading-tight">{title}</h3>
-          <p className="text-xs text-gray-500 mt-1 flex items-center">
-            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            {date}
-          </p>
+      <div className={`p-4 rounded-lg transition-all duration-300 h-full ${
+        isUrgent 
+          ? 'bg-red-50 border-l-4 border-red-500' 
+          : 'bg-white hover:bg-emerald-50 border-l-4 border-emerald-200'
+      }`}>
+        <div className="flex items-start">
+          <div 
+            className={`flex-shrink-0 w-10 h-10 rounded-full ${
+              isUrgent 
+                ? 'bg-red-100 text-red-600' 
+                : 'bg-emerald-100 text-emerald-600'
+            } flex items-center justify-center mr-3`}
+          >
+            <FaBell className="w-4 h-4" />
+          </div>
+          
+          <div>
+            <h3 className="font-semibold text-gray-800 text-sm leading-tight">
+              {title}
+            </h3>
+            
+            {date && (
+              <p className="text-xs text-gray-500 mt-1">
+                {new Date(date).toLocaleDateString('bn-BD', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </p>
+            )}
+          </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
 const NoticeSection = () => {
   const [notices, setNotices] = useState([]);
-  
-  const { data, loading, error } = useQuery(GET_LATEST_NOTICES, {
+  const [selectedNotice, setSelectedNotice] = useState(null);
+  const { loading, error, data } = useQuery(GET_LATEST_NOTICES, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
-    onError: (error) => {
-      console.error('GraphQL Error Details:', {
-        message: error.message,
-        networkError: error.networkError,
-        graphQLErrors: error.graphQLErrors,
-      });
-    },
-    onCompleted: (data) => {
-      console.log('GraphQL Query Completed:', {
-        data,
-        hasNotices: data?.schoolNotices?.edges?.length > 0,
-        firstNotice: data?.schoolNotices?.edges?.[0]?.node
-      });
-    }
   });
 
-  // Process notices when data changes
-  useEffect(() => {
+  // Process the data when it's loaded
+  const processNotices = () => {
     if (data?.schoolNotices?.edges) {
-      const processedNotices = data.schoolNotices.edges
-        .map(edge => edge.node)
-        .filter(node => node.schoolNotices?.notice?.trim())
-        .map(node => ({
-          id: node.id,
-          uri: node.uri,
-          schoolNotices: node.schoolNotices
-        }));
-      
-      setNotices(processedNotices);
-      
-      console.log('Processed Notices:', processedNotices);
-    } else {
-      setNotices([]);
+      return data.schoolNotices.edges.map(edge => ({
+        id: edge.node.id,
+        title: edge.node.schoolNotices?.notice,
+        date: edge.node.schoolNotices?.noticeDate,
+        isImportant: edge.node.schoolNotices?.isImportant || false,
+        uri: edge.node.uri,
+        content: edge.node.content
+      })).filter(notice => notice.title?.trim());
     }
+    return [];
+  };
+
+  // Update notices when data changes
+  useEffect(() => {
+    const processed = processNotices();
+    setNotices(processed);
   }, [data]);
+
+  const handleNoticeClick = (notice) => {
+    setSelectedNotice(notice);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedNotice(null);
+  };
 
   if (loading) {
     return (
@@ -216,32 +233,24 @@ const NoticeSection = () => {
           </a>
         </div>
         <div className="space-y-4 mt-4 flex-grow overflow-y-auto max-h-[400px] pr-2 -mr-3">
-          {notices.map((notice) => {
-            const noticeData = notice.schoolNotices || {};
-            const noticeDate = noticeData.noticeDate || notice.date;
-            const formattedDate = noticeDate ? new Date(noticeDate).toLocaleDateString('bn-BD', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            }) : '';
-            
-            // Only show notices that have notice text
-            if (!noticeData.notice?.trim()) return null;
-            
-            // Create a unique key by combining notice.id and a hash of the notice text
-            const uniqueKey = `notice-${notice.id}-${noticeData.notice ? noticeData.notice.trim().substring(0, 20).replace(/\s+/g, '-') : ''}`;
-            
-            return (
-              <div key={uniqueKey} className="mb-3">
-                <NoticeCard 
-                  title={noticeData.notice.trim()} 
-                  date={formattedDate}
-                  isUrgent={noticeData.isImportant || false}
-                  uri={notice.uri}
-                />
-              </div>
-            );
-          })}
+          {notices.map((notice) => (
+            <div key={notice.id} className="mb-3">
+              <NoticeCard
+                title={notice.title}
+                date={notice.date}
+                isUrgent={notice.isImportant}
+                onClick={() => handleNoticeClick(notice)}
+              />
+            </div>
+          ))}
+
+          {/* Notice Popup */}
+          {selectedNotice && (
+            <NoticePopup 
+              notice={selectedNotice} 
+              onClose={handleClosePopup} 
+            />
+          )}
         </div>
         <div className="mt-4 text-center">
           <a 
