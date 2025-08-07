@@ -2,68 +2,65 @@ import React from 'react';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="container mx-auto">
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-          <div className="p-8">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">About Square Kindergarten School</h1>
-              <div className="text-2xl font-semibold text-gray-700 mb-4">স্কয়ার কিন্ডারগার্টেন স্কুল</div>
-              <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
+    <div className="min-h-screen bg-gray-50 py-8 md:py-12">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
+          <div className="p-6 md:p-8">
+            <div className="text-center mb-8">
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">স্কয়ার কিন্ডারগার্টেন স্কুল</h1>
+              <div className="w-20 h-1 bg-emerald-600 mx-auto"></div>
             </div>
 
-            <div className="prose max-w-none">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h2>
-              <p className="text-gray-600 mb-6">
-                At Square Kindergarten School, we are dedicated to providing a nurturing and stimulating environment where students can achieve their full potential. 
-                Our mission is to foster intellectual curiosity, critical thinking, and a lifelong love of learning in every student.
-              </p>
+            <div className="space-y-6 text-justify">
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800 mb-3">আমাদের কথা</h2>
+                <p className="text-gray-700 leading-relaxed">
+                  স্কয়ার কিন্ডারগার্টেন স্কুলে স্বাগতম। ১৯৯৫ সাল থেকে আমরা শিশুদের সৃজনশীলতা, নৈতিকতা ও জ্ঞানের সমন্বয়ে গড়ে তোলার লক্ষ্যে কাজ করে যাচ্ছি।
+                </p>
+              </div>
 
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-8">Our Vision</h2>
-              <p className="text-gray-600 mb-6">
-                We envision a world where every student is empowered with the knowledge, skills, and values needed to thrive in an ever-changing global society. 
-                Our goal is to develop well-rounded individuals who are prepared to make meaningful contributions to their communities.
-              </p>
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800 mb-3">আমাদের লক্ষ্য</h2>
+                <p className="text-gray-700 leading-relaxed">
+                  "শিক্ষাই জাতির মেরুদন্ড" - এই বাণীকে ধারণ করে আমরা শিক্ষার্থীদের মেধা ও মননের সুষম বিকাশে কাজ করছি। আমাদের লক্ষ্য প্রতিটি শিশুর সুপ্ত প্রতিভার সন্ধান করা এবং তা বিকশিত করা।
+                </p>
+              </div>
 
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-8">Our History</h2>
-              <p className="text-gray-600 mb-6">
-                Established in 1995, Square Kindergarten School has been at the forefront of educational excellence for over two decades. 
-                What began as a small institution with a handful of students has grown into a renowned educational center serving hundreds of students each year.
-              </p>
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800 mb-3">আমাদের সুযোগ-সুবিধা</h2>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {[
+                    'আধুনিক শ্রেণিকক্ষ',
+                    'কম্পিউটার ল্যাব',
+                    'সমৃদ্ধ লাইব্রেরি',
+                    'খেলার মাঠ',
+                    'সাংস্কৃতিক চর্চার ব্যবস্থা',
+                    'নিরাপদ ও সুরক্ষিত ক্যাম্পাস',
+                    'অভিজ্ঞ শিক্ষকমণ্ডলী',
+                    'সর্বাধুনিক শিক্ষা উপকরণ'
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start">
+                      <svg className="h-5 w-5 text-emerald-600 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="text-gray-700">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-8">Our Facilities</h2>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                {[
-                  'Modern classrooms with smart boards',
-                  'Fully equipped science and computer labs',
-                  'Extensive library with digital resources',
-                  'Sports complex with indoor and outdoor facilities',
-                  'Auditorium for events and performances',
-                  'Cafeteria serving healthy meals',
-                  'Art and music rooms',
-                  'Safe and secure campus'
-                ].map((facility, index) => (
-                  <li key={index} className="flex items-start">
-                    <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600">{facility}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="pt-4">
+                <p className="text-gray-700 leading-relaxed italic">
+                  "শিক্ষার আলো জ্বালো, আলোকিত করো জীবন" - এই প্রত্যয় নিয়ে আমরা প্রতিটি শিশুর মাঝে জ্ঞানের আলো ছড়িয়ে দিতে প্রতিশ্রুতিবদ্ধ।
+                </p>
+              </div>
 
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-8">Our Team</h2>
-              <p className="text-gray-600 mb-6">
-                Our dedicated team of experienced educators is committed to providing the highest quality education. 
-                With a student-centered approach, our teachers create engaging learning experiences that inspire and challenge students to excel.
-              </p>
-
-              <div className="mt-12 text-center">
+              <div className="mt-8 text-center">
                 <a 
                   href="/contact" 
-                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-colors"
+                  className="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-6 rounded-md transition-colors text-sm md:text-base"
                 >
-                  Contact Us
+                  যোগাযোগ করুন
                 </a>
               </div>
             </div>

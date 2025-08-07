@@ -14,9 +14,11 @@ export default function DesktopNav({ navLinks, pathname, openDropdown, toggleDro
               >
               <button 
                 type="button"
-                className={`flex items-center justify-center px-4 py-2 rounded-md font-medium transition-colors duration-300 focus:outline-none focus:ring-0 focus:ring-offset-0 ${isScrolled ? '' : 'w-full h-full'} ${
-                  openDropdown === link.label
-                    ? 'bg-emerald-600 text-white'
+                className={`flex items-center justify-center px-4 py-2.5 rounded-md font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-200 focus:ring-offset-2 ${
+                  isScrolled ? 'mx-1' : 'w-full h-full'
+                } ${
+                  openDropdown === link.label || pathname === link.href
+                    ? 'bg-emerald-600 text-white font-semibold'
                     : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-800'
                 }`}
                 onClick={(e) => {
@@ -45,25 +47,28 @@ export default function DesktopNav({ navLinks, pathname, openDropdown, toggleDro
               <div className={`${openDropdown === link.label ? 'block' : 'hidden'} group-hover:block`}>
                 <div 
                   ref={el => dropdownRefs.current[link.label] = el}
-                  className="dropdown-menu absolute left-0 mt-0 pt-1 w-56 rounded-b-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+                  className="dropdown-menu absolute left-1/2 -translate-x-1/2 mt-0 w-64 rounded-b-lg shadow-xl bg-white border border-gray-100 focus:outline-none z-50 overflow-hidden"
                   style={{
-                    // Position the dropdown right below the parent item with no gap
-                    transform: 'translateY(-1px)'
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                   }}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <motion.ul 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.15, ease: 'easeOut' }}
-                    className="py-1"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                    className="py-2"
                   >
                     {link.subItems.map((subItem) => (
-                      <li key={subItem.label}>
+                      <li key={subItem.label} className="first:mt-1 last:mb-1">
                         <Link 
                           href={subItem.href}
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-800 transition-colors duration-200 focus:outline-none"
+                          className={`block w-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                            pathname === subItem.href 
+                              ? 'bg-emerald-50 text-emerald-800 font-semibold' 
+                              : 'text-gray-700 hover:bg-emerald-50 hover:text-emerald-800'
+                          }`}
                           onClick={() => toggleDropdown(null)}
                         >
                           {subItem.label}
@@ -77,6 +82,8 @@ export default function DesktopNav({ navLinks, pathname, openDropdown, toggleDro
           ) : (
             <Link 
               href={link.href}
+              target={link.target || '_self'}
+              rel={link.target === '_blank' ? 'noopener noreferrer' : ''}
               className={`flex items-center justify-center px-4 py-2 rounded-md font-medium transition-colors duration-300 focus:outline-none focus:ring-0 focus:ring-offset-0 ${isScrolled ? '' : 'w-full h-full'} ${
                 pathname === link.href 
                   ? 'bg-emerald-600 text-white'
@@ -85,6 +92,11 @@ export default function DesktopNav({ navLinks, pathname, openDropdown, toggleDro
               aria-current={pathname === link.href ? 'page' : undefined}
             >
               {link.label}
+              {link.target === '_blank' && (
+                <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              )}
             </Link>
           )}
           </div>

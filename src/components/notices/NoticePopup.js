@@ -1,13 +1,17 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { format } from 'date-fns';
 import { bn } from 'date-fns/locale';
 import { FaTimes, FaBell, FaExclamationCircle } from 'react-icons/fa';
 
 export default function NoticePopup({ notice, onClose }) {
-  // Close popup when clicking outside or pressing Escape
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
+    
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
         onClose();
@@ -16,26 +20,56 @@ export default function NoticePopup({ notice, onClose }) {
 
     document.addEventListener('keydown', handleEscape);
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = 'unset';
+      document.body.style.position = '';
+      document.body.style.width = '';
     };
   }, [onClose]);
 
-  if (!notice) return null;
+  if (!notice || !mounted) return null;
 
   const formattedDate = notice.date 
     ? format(new Date(notice.date), 'd MMMM yyyy', { locale: bn })
     : '';
 
-  return (
+  // Create a portal to render the popup at the document body level
+  return createPortal((
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 overflow-y-auto"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 overflow-y-auto"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 9999,
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1rem',
+        overflowY: 'auto'
+      }}
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-4xl bg-white rounded-lg shadow-xl max-h-[90vh] flex flex-col"
+        className="relative w-full max-w-4xl bg-white rounded-lg shadow-2xl max-h-[90vh] flex flex-col"
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: '56rem',
+          backgroundColor: 'white',
+          borderRadius: '0.5rem',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.1)',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          zIndex: 10000
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -114,5 +148,5 @@ export default function NoticePopup({ notice, onClose }) {
         </div>
       </div>
     </div>
-  );
+  ), document.body);
 }

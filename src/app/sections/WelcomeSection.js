@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn, staggerContainer, textVariant } from '../../utils/motion';
 import PrincipalMessageSection from './PrincipalMessageSection';
+import FoundersMessageSection from './FoundersMessageSection';
 
 const WelcomeSection = () => {
   return (
@@ -74,10 +75,15 @@ const WelcomeSection = () => {
           </motion.div>
           
           <motion.div 
-            className="lg:w-1/3"
+            className="lg:w-1/3 flex flex-col gap-6"
             variants={fadeIn('left', 'tween', 0.3, 1)}
           >
-            <PrincipalMessageSection />
+            <div className="flex-1">
+              <FoundersMessageSection />
+            </div>
+            <div className="flex-1">
+              <PrincipalMessageSection />
+            </div>
           </motion.div>
         </motion.div>
       </div>

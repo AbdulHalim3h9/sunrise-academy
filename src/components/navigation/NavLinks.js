@@ -17,10 +17,15 @@ export const navLinks = [
         subItems: [
           { href: "/academics/srenibhobik-shikkharthi", label: "শ্রেণীভিত্তিক শিক্ষার্থী" },
           { href: "/academics/shokol-class-routine", label: "সকল ক্লাস রুটিন" },
-          { href: "/academics/shokol-syllabus", label: "সকল সিলেবাস" }
+          { href: "/academics/shokol-syllabus", label: "সকল সিলেবাস" },
+          { href: "/teacher-staffs", label: "শিক্ষক ও কর্মচারী" }
         ]
       },
       { href: "/bebosthapona-komiti", label: "ব্যবস্থাপনা কমিটি" },
-      { href: "/teacher-staffs", label: "শিক্ষক ও কর্মচারী" },
       { href: "/contact", label: "যোগাযোগ" },
+      { 
+        href: "https://api.squarecomputer.net/wp-login.php?redirect_to=https%3A%2F%2Fapi.squarecomputer.net%2Fwp-admin%2F&reauth=1", 
+        label: "লগইন",
+        target: "_blank"
+      },
     ];

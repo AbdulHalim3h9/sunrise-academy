@@ -123,7 +123,7 @@ export default function Navigation() {
       </div>
       
       {/* Main Navigation - Positioned below TopBar */}
-      <div className="fixed top-10 left-0 right-0 z-30">
+      <div className="fixed top-10 left-0 right-0 z-40">
         <div className={`w-full bg-white transition-all duration-300 ${isScrolled ? 'shadow-md' : 'shadow-sm'}`}>
           <div className="w-full bg-white">
             <div className={`mx-auto px-0 sm:px-6 lg:px-0 transition-all duration-300 ${isMobile ? 'h-16' : (isScrolled ? 'h-16' : 'h-36')}`}>

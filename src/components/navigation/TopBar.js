@@ -4,7 +4,7 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 export default function TopBar() {
   return (
-    <div className="bg-gray-900 text-white text-sm py-2 px-4 border-b border-gray-800 h-10 flex items-center">
+    <div className="bg-gray-900 text-white text-sm py-2 px-4 border-b border-gray-800 h-10 flex items-center relative z-30">
       <div className="max-w-7xl w-full mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Left side - Hours and Address - Hidden on mobile */}
         <div className="hidden md:flex items-center space-x-4">

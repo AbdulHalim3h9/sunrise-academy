@@ -1,18 +1,18 @@
 import React from 'react';
 
-const PrincipalMessageSection = () => {
+const FoundersMessageSection = () => {
   return (
     <div className="bg-white p-5 rounded-lg border border-gray-100 shadow-sm">
       <div>
-        <h3 className="text-lg font-bold text-gray-800 mb-3">প্রিন্সিপালের বার্তা</h3>
+        <h3 className="text-lg font-bold text-gray-800 mb-3">প্রতিষ্ঠাতার বাণী</h3>
         <div className="w-12 h-0.5 bg-emerald-600 mb-4"></div>
       </div>
       
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-50 rounded-full overflow-hidden flex-shrink-0 border-2 border-emerald-100">
           <img
-            src="/images/ruhul.jpeg"
-            alt="প্রিন্সিপাল মোঃ রুহুল আমিন সরকার"
+            src="/images/founder.jpg"
+            alt="প্রতিষ্ঠাতা"
             className="w-full h-full object-cover"
             onError={(e) => {
               e.target.onerror = null;
@@ -23,18 +23,18 @@ const PrincipalMessageSection = () => {
         
         <div className="flex-1">
           <div className="mb-2">
-            <h4 className="font-bold text-gray-900 text-sm sm:text-base">মোঃ রুহুল আমিন সরকার</h4>
-            <p className="text-xs text-emerald-600 font-medium">পরিচালক, স্কয়ার কিন্ডার গার্টেন স্কুল</p>
+            <h4 className="font-bold text-gray-900 text-sm sm:text-base">মোঃ আব্দুল মান্নান</h4>
+            <p className="text-xs text-emerald-600 font-medium">প্রতিষ্ঠাতা, স্কয়ার কিন্ডার গার্টেন স্কুল</p>
           </div>
           
           <p className="text-gray-600 text-xs leading-relaxed">
-            "শিক্ষার আলো জ্বালো, আলোকিত করো জীবন।" - এই মহান বাণীকে ধারণ করে আমরা শিক্ষার্থীদের মেধা ও মননের সুষম বিকাশে কাজ করে যাচ্ছি।
+            "শিক্ষাই জাতির মেরুদন্ড।" - এই মহান বাণীকে ধারণ করে আমরা স্কয়ার কিন্ডার গার্টেন প্রতিষ্ঠা করেছি। 
+            আমাদের লক্ষ্য হল শিশুদের মেধা ও মননের সঠিক বিকাশ সাধন করা।
           </p>
         </div>
       </div>
     </div>
-
   );
 };
 
-export default PrincipalMessageSection;
+export default FoundersMessageSection;
