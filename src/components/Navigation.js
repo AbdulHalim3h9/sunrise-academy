@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import { useSchoolInfo } from '@/context/SchoolInfoContext';
 
 import TopBar from './navigation/TopBar';
 import DesktopNav from './navigation/DesktopNav';
@@ -21,9 +22,19 @@ export default function Navigation() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [eiin, setEiin] = useState('EIIN: ১৩২৯১৩');
+  const [instituteCode, setInstituteCode] = useState('ইনস্টিটিউট কোড: ২০০৬৮');
   const dropdownRefs = useRef({});
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
+  const { schoolInfo } = useSchoolInfo();
+
+  useEffect(() => {
+    if (schoolInfo) {
+      if (schoolInfo.eiinNumber) setEiin(`EIIN: ${schoolInfo.eiinNumber}`);
+      if (schoolInfo.instituteCode) setInstituteCode(`ইনস্টিটিউট কোড: ${schoolInfo.instituteCode}`);
+    }
+  }, [schoolInfo]);
 
   // Check if mobile view
   useEffect(() => {
@@ -141,7 +152,7 @@ export default function Navigation() {
                         স্কয়ার কিন্ডারগার্টেন
                       </span>
                       <p className="text-xs text-gray-600 font-siyam-rupali font-semibold whitespace-nowrap">
-                        ইনস্টিটিউট কোড: ২০০৬৮ | EIIN: ১৩২৯১৩
+                        {instituteCode} | {eiin}
                       </p>
                     </div>
                   </Link>
