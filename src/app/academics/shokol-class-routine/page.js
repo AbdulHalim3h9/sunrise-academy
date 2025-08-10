@@ -1,15 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_CLASS_ROUTINES } from '@/app/graphql/classRoutines';
+import { FaSpinner } from 'react-icons/fa';
 
 export default function ShokolClassRoutine() {
-  const [routines] = useState([
-    { id: 1, title: 'ষষ্ঠ শ্রেণীর রুটিন', date: '০১/০১/২০২৫', download: '#' },
-    { id: 2, title: 'সপ্তম শ্রেণীর রুটিন', date: '০১/০১/২০২৫', download: '#' },
-    { id: 3, title: 'অষ্টম শ্রেণীর রুটিন', date: '০১/০১/২০২৫', download: '#' },
-    { id: 4, title: 'নবম শ্রেণীর রুটিন', date: '০১/০১/২০২৫', download: '#' },
-    { id: 5, title: 'দশম শ্রেণীর রুটিন', date: '০১/০১/২০২৫', download: '#' },
-  ]);
+  const { data, loading, error } = useQuery(GET_CLASS_ROUTINES);
+  const [routines, setRoutines] = useState([]);
+
+  useEffect(() => {
+    if (data?.shreniRoutines?.edges) {
+      const formattedRoutines = data.shreniRoutines.edges.map(({ node }, index) => ({
+        id: index + 1,
+        title: node.shreniRoutineFields.routineTitle || 'ক্লাস রুটিন',
+        date: node.shreniRoutineFields.date || '',
+        download: node.shreniRoutineFields.file?.node?.link || '#',
+      }));
+      setRoutines(formattedRoutines);
+    }
+  }, [data]);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -30,20 +40,48 @@ export default function ShokolClassRoutine() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {routines.map((routine, index) => (
-                  <tr key={routine.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{routine.id}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{routine.title}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{routine.date}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                      <a href={routine.download} className="text-emerald-600 hover:text-emerald-900">
-                        <svg className="h-5 w-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                      </a>
+                {loading ? (
+                  <tr>
+                    <td colSpan="4" className="px-6 py-4 text-center">
+                      <div className="flex justify-center items-center space-x-2">
+                        <FaSpinner className="animate-spin h-5 w-5 text-emerald-600" />
+                        <span className="text-gray-600">লোড হচ্ছে...</span>
+                      </div>
                     </td>
                   </tr>
-                ))}
+                ) : error ? (
+                  <tr>
+                    <td colSpan="4" className="px-6 py-4 text-center text-red-600">
+                      ডেটা লোড করতে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।
+                    </td>
+                  </tr>
+                ) : routines.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className="px-6 py-4 text-center text-gray-500">
+                      কোন রুটিন পাওয়া যায়নি
+                    </td>
+                  </tr>
+                ) : (
+                  routines.map((routine, index) => (
+                    <tr key={`${routine.id}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{routine.id}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{routine.title}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">{routine.date}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                        <a 
+                          href={routine.download} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-emerald-600 hover:text-emerald-900 inline-block"
+                        >
+                          <svg className="h-5 w-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                          </svg>
+                        </a>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

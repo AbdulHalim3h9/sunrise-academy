@@ -1,7 +1,11 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'framer-motion';
+import { useQuery } from '@apollo/client';
+import { GET_LATEST_ANNOUNCEMENTS } from '@/app/graphql/latestAnnouncements';
+import Link from 'next/link';
+import { FaArrowRight } from 'react-icons/fa';
 import HeroSection from './sections/HeroSection';
 import NoticeSection from './sections/NoticeSection';
 import WelcomeSection from './sections/WelcomeSection';
@@ -73,23 +77,21 @@ export default function Home() {
     { title: 'অভিভাবক-শিক্ষক সভা', date: '১০ অক্টোবর, ২০২৫' },
   ];
 
-  const announcements = [
-    {
-      title: 'নতুন শিক্ষাবর্ষ',
-      date: '১ আগস্ট, ২০২৫',
-      description: 'নতুন শিক্ষাবর্ষ শুরু হচ্ছে ১ আগস্ট, ২০২৫ থেকে। সকল শিক্ষার্থী ও অভিভাবকদের জানানো যাচ্ছে।',
-    },
-    {
-      title: 'অনলাইন ভর্তি শুরু',
-      date: '১৫ জুলাই, ২০২৫',
-      description: '২০২৫-২৬ শিক্ষাবর্ষের জন্য অনলাইন ভর্তি শুরু হয়েছে। আমাদের ওয়েবসাইটে গিয়ে আবেদন করুন।',
-    },
-    {
-      title: 'অভিভাবক-শিক্ষক সভা',
-      date: '১০ অক্টোবর, ২০২৫',
-      description: 'আগামী ১০ অক্টোবর, ২০২৫ তারিখে বার্ষিক অভিভাবক-শিক্ষক সভা অনুষ্ঠিত হবে।',
-    },
-  ];
+  // Fetch latest announcements from GraphQL
+  const { data: announcementsData, loading: announcementsLoading, error: announcementsError } = useQuery(GET_LATEST_ANNOUNCEMENTS);
+  const [announcements, setAnnouncements] = useState([]);
+
+  useEffect(() => {
+    if (announcementsData?.latestAnnouncements?.edges) {
+      const formattedAnnouncements = announcementsData.latestAnnouncements.edges.map(edge => ({
+        id: edge.node.id,
+        title: edge.node.title || 'ঘোষণা',
+        date: edge.node.latestAnnouncementFields?.date || '',
+        description: edge.node.latestAnnouncementFields?.description || ''
+      }));
+      setAnnouncements(formattedAnnouncements);
+    }
+  }, [announcementsData]);
 
   const quickLinks = [
     { title: 'ভর্তি প্রক্রিয়া', url: '/admissions' },
@@ -153,7 +155,7 @@ export default function Home() {
           <WelcomeSection />
       </SectionWrapper>
       
-      {/* Announcements & Calendar Section */}
+      {/* Original Announcements Section */}
       <SectionWrapper className="py-4">
         <div className="container mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
@@ -165,7 +167,11 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <AnnouncementsSection announcements={announcements} />
+                <AnnouncementsSection 
+                  announcements={announcements} 
+                  loading={announcementsLoading}
+                  error={announcementsError}
+                />
               </motion.div>
             </div>
             
@@ -184,6 +190,8 @@ export default function Home() {
           </div>
         </div>
       </SectionWrapper>
+      
+
       
       {/* News & Events and Quick Links Section */}
       <SectionWrapper className="py-4  bg-white">

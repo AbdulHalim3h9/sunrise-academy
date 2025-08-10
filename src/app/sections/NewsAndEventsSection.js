@@ -1,201 +1,135 @@
 'use client';
-import React, { useRef, useState, useEffect } from 'react';
-import { FiCalendar, FiArrowRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-const NewsAndEventsSection = () => {
-  const scrollContainer = useRef(null);
-  const [showLeftButton, setShowLeftButton] = useState(false);
-  const [showRightButton, setShowRightButton] = useState(true);
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_KHOBOR_EVENTS } from '../graphql/queries';
+import { motion } from 'framer-motion';
+import { FaCalendarAlt, FaNewspaper, FaArrowRight } from 'react-icons/fa';
+import Image from 'next/image';
+import Link from 'next/link';
 
-  const scroll = (direction) => {
-    if (!scrollContainer.current) return;
-    
-    const container = scrollContainer.current;
-    const scrollAmount = direction === 'left' ? -400 : 400;
-    
-    container.scrollBy({
-      left: scrollAmount,
-      behavior: 'smooth'
-    });
-    
-    // Update button visibility after scroll
-    setTimeout(() => {
-      setShowLeftButton(container.scrollLeft > 0);
-      setShowRightButton(
-        container.scrollLeft < container.scrollWidth - container.clientWidth - 10
-      );
-    }, 300);
-  };
+const formatDate = (dateString) => {
+  if (!dateString) return '';
   
-  // Initialize button visibility on component mount and window resize
-  useEffect(() => {
-    if (scrollContainer.current) {
-      const container = scrollContainer.current;
-      const updateButtonVisibility = () => {
-        setShowLeftButton(container.scrollLeft > 0);
-        setShowRightButton(
-          container.scrollLeft < container.scrollWidth - container.clientWidth - 10
-        );
-      };
-      
-      updateButtonVisibility();
-      
-      const handleResize = () => {
-        updateButtonVisibility();
-      };
-      
-      container.addEventListener('scroll', updateButtonVisibility);
-      window.addEventListener('resize', handleResize);
-      
-      return () => {
-        container.removeEventListener('scroll', updateButtonVisibility);
-        window.removeEventListener('resize', handleResize);
-      };
-    }
-  }, []);
-  const newsAndEvents = [
-    {
-      id: 1,
-      title: 'বার্ষিক ক্রীড়া প্রতিযোগিতা ২০২৫',
-      date: '১৫ নভেম্বর ২০২৫',
-      time: 'সকাল ৯:০০ টা',
-      location: 'বিদ্যালয় মাঠ',
-      excerpt: 'বার্ষিক ক্রীড়া প্রতিযোগিতার জন্য নিবন্ধন শুরু হয়েছে। সকল শিক্ষার্থীদের অংশগ্রহণের জন্য অনুরোধ করা হলো।',
-      type: 'event',
-      image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-    },
-    {
-      id: 2,
-      title: 'বিজ্ঞান মেলা আয়োজন',
-      date: '২৫ নভেম্বর ২০২৫',
-      time: 'সকাল ১০:০০ টা',
-      location: 'বিদ্যালয় অডিটোরিয়াম',
-      excerpt: 'আগামী মাসে অনুষ্ঠিত হতে যাচ্ছে বার্ষিক বিজ্ঞান মেলা। অংশগ্রহণে আগ্রহী শিক্ষার্থীদের নাম রেজিস্ট্রেশন করান।',
-      type: 'event',
-      image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-    },
-    {
-      id: 3,
-      title: 'মিড টার্ম পরীক্ষার সময়সূচি',
-      date: '১০ ডিসেম্বর ২০২৫',
-      excerpt: 'মিড টার্ম পরীক্ষার সময়সূচি প্রকাশিত হয়েছে। সকল শিক্ষার্থীদের সময়সূচি দেখে প্রস্তুতি নেওয়ার জন্য অনুরোধ করা হলো।',
-      type: 'news',
-      image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80'
-    },
-    {
-      id: 4,
-      title: 'সাংস্কৃতিক সন্ধ্যা',
-      date: '২০ ডিসেম্বর ২০২৫',
-      time: 'সন্ধ্যা ৬:০০ টা',
-      location: 'বিদ্যালয় প্রাঙ্গণ',
-      excerpt: 'আগামী ২০ ডিসেম্বর সাংস্কৃতিক সন্ধ্যার আয়োজন করা হয়েছে। সকল অভিভাবক ও শিক্ষার্থীদের সাদর আমন্ত্রণ।',
-      type: 'event',
-      image: 'https://images.unsplash.com/photo-1505373870541-8cda17efd0d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
-    },
-    {
-      id: 5,
-      title: 'বই বিতরণ উৎসব',
-      date: '৫ জানুয়ারি ২০২৬',
-      excerpt: 'নতুন শিক্ষাবর্ষের বই বিতরণ উৎসবের তারিখ ঘোষণা করা হয়েছে।',
-      type: 'news',
-      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1422&q=80'
-    },
-    {
-      id: 6,
-      title: 'শিক্ষক-অভিভাবক সভা',
-      date: '১৫ জানুয়ারি ২০২৬',
-      time: 'সকাল ১০:০০ টা',
-      location: 'ক্লাসরুম',
-      excerpt: 'নতুন শিক্ষাবর্ষের প্রথম শিক্ষক-অভিভাবক সভার আয়োজন করা হয়েছে।',
-      type: 'event',
-      image: 'https://images.unsplash.com/photo-1577896851231-70ef188a54eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-    }
-  ];
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+};
 
-
-
+const NewsEventCard = ({ event, index }) => {
+  const { eventTitle, date, coverImage } = event.khoborEventFields || {};
+  
   return (
-    <section className="py-10 relative">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'var(--font-siyam-rupali)' }}>খবর ও ইভেন্ট</h2>
-          <div className="w-16 h-1 bg-emerald-500 mx-auto rounded-full"></div>
-        </div>
-
-        <div className="relative max-w-6xl mx-auto">
-          {/* Navigation Buttons */}
-          {showLeftButton && (
-            <button 
-              onClick={() => scroll('left')}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -ml-2 z-10 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors"
-              aria-label="Previous items"
-            >
-              <FiChevronLeft className="w-5 h-5 text-gray-700" />
-            </button>
-          )}
-          
-          <div 
-            ref={scrollContainer}
-            className="flex gap-4 pb-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory -mx-2 px-2"
-            style={{
-              scrollbarWidth: 'none', // Firefox
-              msOverflowStyle: 'none', // IE and Edge
-              WebkitOverflowScrolling: 'touch',
-            }}
-          >
-            {newsAndEvents.map((item) => (
-              <div
-                key={item.id}
-                className="flex-shrink-0 w-64 md:w-72 snap-start relative rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-52 md:h-60 group mx-1"
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <div className="flex items-center text-sm text-white/80 mb-2">
-                      <FiCalendar className="mr-1.5" size={14} />
-                      <span>{item.date}</span>
-                      {item.time && (
-                        <>
-                          <span className="mx-2">•</span>
-                          <span>{item.time}</span>
-                        </>
-                      )}
-                    </div>
-                    <h3 className="text-xl font-bold mb-2 line-clamp-2" style={{ fontFamily: 'var(--font-siyam-rupali)' }}>{item.title}</h3>
-                    <p className="text-sm text-white/90 mb-3 line-clamp-2">{item.excerpt}</p>
-                    <button className="text-sm text-white font-medium flex items-center group-hover:text-emerald-300 transition-colors">
-                      বিস্তারিত জানুন
-                      <FiArrowRight className="ml-1.5 group-hover:translate-x-1 transition-transform" size={14} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+    <motion.div 
+      className="group relative rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 h-56 w-full"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: (index % 3) * 0.1 }}
+    >
+      {/* Background Image */}
+      <div className="absolute inset-0 bg-gray-100">
+        {coverImage?.node?.sourceUrl ? (
+          <Image
+            src={coverImage.node.sourceUrl}
+            alt={coverImage.node.altText || eventTitle || 'Event'}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center">
+            <FaNewspaper className="w-12 h-12 text-emerald-500" />
           </div>
-          
-          {showRightButton && (
-            <button 
-              onClick={() => scroll('right')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 -mr-2 z-10 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors"
-              aria-label="Next items"
-            >
-              <FiChevronRight className="w-5 h-5 text-gray-700" />
-            </button>
-          )}
+        )}
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
+      </div>
+      
+      {/* Content */}
+      <div className="relative h-full flex flex-col justify-end p-4 text-white">
+        <div className="flex items-center text-xs text-white/80 mb-2">
+          <FaCalendarAlt className="w-3 h-3 mr-1.5 text-emerald-300 flex-shrink-0" />
+          <span>{formatDate(date)}</span>
         </div>
         
-        <div className="text-center mt-8">
-          <button className="group relative inline-flex items-center justify-center px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg text-sm transition-all duration-300 overflow-hidden">
-            <span className="relative z-10">সব খবর ও ইভেন্ট দেখুন</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-          </button>
+        <h3 
+          className="text-xl font-bold leading-tight line-clamp-2 mb-3 text-white"
+          style={{ 
+            fontFamily: 'var(--font-siyam-rupali)',
+            textShadow: '0 1px 3px rgba(0,0,0,0.7)'
+          }}
+        >
+          {eventTitle}
+        </h3>
+        
+        <div className="flex items-center text-xs text-white/80 group-hover:text-emerald-200 transition-colors">
+          বিস্তারিত জানুন
+          <FaArrowRight className="ml-1 h-2.5 w-2.5 group-hover:translate-x-1 transition-transform" />
         </div>
       </div>
-    </section>
+    </motion.div>
+  );
+};
+
+const NewsAndEventsSection = () => {
+  const { loading, error, data } = useQuery(GET_KHOBOR_EVENTS, {
+    fetchPolicy: 'cache-and-network',
+  });
+
+  if (loading && !data?.khoborEvents?.edges?.length) {
+    return (
+      <div className="py-12 text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500 mx-auto"></div>
+        <p className="mt-4 text-gray-600">খবর ও ইভেন্ট লোড হচ্ছে...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    console.error('Error loading news and events:', error);
+    return (
+      <div className="py-12 text-center">
+        <p className="text-red-500">খবর ও ইভেন্ট লোড করতে সমস্যা হয়েছে। দয়া করে পরে আবার চেষ্টা করুন।</p>
+      </div>
+    );
+  }
+
+  const events = data?.khoborEvents?.edges?.slice(0, 3) || [];
+
+  return (
+    <div className="bg-white rounded-lg shadow-sm p-6">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <h2 
+          className="text-2xl font-bold text-gray-900 mb-2 md:mb-0"
+          style={{ fontFamily: 'var(--font-siyam-rupali)' }}
+        >
+          খবর ও ইভেন্ট
+        </h2>
+        <Link 
+          href="/news-events" 
+          className="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-medium text-sm"
+        >
+          সব দেখুন
+          <FaArrowRight className="ml-1 h-3 w-3" />
+        </Link>
+      </div>
+      
+      {events.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {events.map(({ node }, index) => (
+            <NewsEventCard key={node.id} event={node} index={index} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-8">
+          <FaNewspaper className="mx-auto h-12 w-12 text-gray-300 mb-4" />
+          <p className="text-gray-500">কোন খবর বা ইভেন্ট পাওয়া যায়নি</p>
+        </div>
+      )}
+    </div>
   );
 };
 

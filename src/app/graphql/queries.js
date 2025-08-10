@@ -46,3 +46,25 @@ export const GET_HERO_IMAGES = gql`
     }
   }
 `;
+
+export const GET_KHOBOR_EVENTS = gql`
+  query GetKhoborEvents {
+    khoborEvents {
+      edges {
+        node {
+          id
+          khoborEventFields {
+            eventTitle
+            date
+            coverImage {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
